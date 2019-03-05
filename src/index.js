@@ -19,24 +19,12 @@ const resolvers = {
     url: (parent) => parent.url,
   }
 }
-// 1
-const typeDefs = `
-type Query {
-  info: String!
-  feed: [Link!]!
-}
 
-type Link {
-  id: ID!
-  description: String!
-  url: String!
-}
-`
 
 
 // 3
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema.graphql',
   resolvers,
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
