@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Lumen" title="Lumen" src="[https://github.com/alxshelepenok/gatsby-starter-lumen/blob/gatsby-v2/.github/logo.png](https://raw.githubusercontent.com/AdvaithD/reactive/master/client/components/logo.png)" width="140"> </br>
+    <img alt="Reactive" title="Reactive" src="https://raw.githubusercontent.com/AdvaithD/reactive/master/client/components/logo.png)" width="140"> </br>
     Reactive
 </h1>
 
