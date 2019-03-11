@@ -15,10 +15,12 @@
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.0"
+    "parcel-bundler": "^1.12.0",
+    "prisma": "^1.28.2"
   },
   "scripts": {
     "client": "parcel ./client/index.html",
-    "build": "parcel build"
+    "build": "parcel build",
+    "server": "node src/index.js"
   }
 }
