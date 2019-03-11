@@ -7,6 +7,16 @@
     "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.0",
-    "prisma-client-lib": "^1.28.1"
+    "prisma-client-lib": "^1.28.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.0"
+  },
+  "scripts": {
+    "client": "parcel ./client/index.html",
+    "build": "parcel build"
+
   }
 }
