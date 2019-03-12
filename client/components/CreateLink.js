@@ -21,8 +21,6 @@ class CreateLink extends Component {
             url: '',
           }
       }
- 
-
   render() {
     const { description, url } = this.state
     return (
