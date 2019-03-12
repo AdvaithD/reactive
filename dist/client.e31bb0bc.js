@@ -33620,7 +33620,7 @@ var ApolloClient = function () {
 exports.ApolloClient = ApolloClient;
 var _default = ApolloClient;
 exports.default = _default;
-},{"tslib":"../node_modules/tslib/tslib.es6.js","apollo-utilities":"../node_modules/apollo-utilities/lib/bundle.esm.js","apollo-link":"../node_modules/apollo-link/lib/bundle.esm.js","symbol-observable":"../node_modules/symbol-observable/es/index.js","ts-invariant":"../node_modules/ts-invariant/lib/invariant.esm.js","apollo-link-dedup":"../node_modules/apollo-link-dedup/lib/bundle.esm.js","graphql/language/visitor":"../node_modules/graphql/language/visitor.js"}],"../node_modules/react-apollo/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":[function(require,module,exports) {
+},{"tslib":"../node_modules/tslib/tslib.es6.js","apollo-utilities":"../node_modules/apollo-utilities/lib/bundle.esm.js","apollo-link":"../node_modules/apollo-link/lib/bundle.esm.js","symbol-observable":"../node_modules/symbol-observable/es/index.js","ts-invariant":"../node_modules/ts-invariant/lib/invariant.esm.js","apollo-link-dedup":"../node_modules/apollo-link-dedup/lib/bundle.esm.js","graphql/language/visitor":"../node_modules/graphql/language/visitor.js"}],"../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":[function(require,module,exports) {
 'use strict';
 
 /**
@@ -38958,7 +38958,7 @@ function compose() {
     return result;
   };
 }
-},{"prop-types":"../node_modules/prop-types/index.js","ts-invariant":"../node_modules/react-apollo/node_modules/ts-invariant/lib/invariant.esm.js","tslib":"../node_modules/tslib/tslib.es6.js","react":"../node_modules/react/index.js","apollo-client":"../node_modules/apollo-client/bundle.esm.js","hoist-non-react-statics":"../node_modules/react-apollo/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","react-dom/server":"../node_modules/react-dom/server.browser.js","process":"../node_modules/process/browser.js"}],"../node_modules/graphql/jsutils/defineToJSON.js":[function(require,module,exports) {
+},{"prop-types":"../node_modules/prop-types/index.js","ts-invariant":"../node_modules/react-apollo/node_modules/ts-invariant/lib/invariant.esm.js","tslib":"../node_modules/tslib/tslib.es6.js","react":"../node_modules/react/index.js","apollo-client":"../node_modules/apollo-client/bundle.esm.js","hoist-non-react-statics":"../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","react-dom/server":"../node_modules/react-dom/server.browser.js","process":"../node_modules/process/browser.js"}],"../node_modules/graphql/jsutils/defineToJSON.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42389,16 +42389,76 @@ function (_Component) {
 
 var _default = CreateLink;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-apollo":"../node_modules/react-apollo/react-apollo.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js"}],"components/Header.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-apollo":"../node_modules/react-apollo/react-apollo.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+"use strict";
 
-},{}],"../node_modules/warning/warning.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+},{}],"../node_modules/gud/index.js":[function(require,module,exports) {
+var global = arguments[3];
+'use strict';
+
+var key = '__global_unique_id__';
+
+module.exports = function () {
+  return global[key] = (global[key] || 0) + 1;
+};
+},{}],"../node_modules/fbjs/lib/emptyFunction.js":[function(require,module,exports) {
+"use strict";
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+},{}],"../node_modules/fbjs/lib/warning.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
+ *
  */
 'use strict';
+
+var emptyFunction = require('./emptyFunction');
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -42406,17 +42466,13 @@ exports.default = _default;
  * same logic and follow the same code paths.
  */
 
-var __DEV__ = "development" !== 'production';
 
-var warning = function () {};
+var warning = emptyFunction;
 
-if (__DEV__) {
-  var printWarning = function printWarning(format, args) {
-    var len = arguments.length;
-    args = new Array(len > 1 ? len - 1 : 0);
-
-    for (var key = 1; key < len; key++) {
-      args[key - 1] = arguments[key];
+if ("development" !== 'production') {
+  var printWarning = function printWarning(format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
     }
 
     var argIndex = 0;
@@ -42436,128 +42492,322 @@ if (__DEV__) {
     } catch (x) {}
   };
 
-  warning = function (condition, format, args) {
-    var len = arguments.length;
-    args = new Array(len > 2 ? len - 2 : 0);
-
-    for (var key = 2; key < len; key++) {
-      args[key - 2] = arguments[key];
-    }
-
+  warning = function warning(condition, format) {
     if (format === undefined) {
       throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
     }
 
-    if (!condition) {
-      printWarning.apply(null, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-},{}],"../node_modules/history/node_modules/warning/browser.js":[function(require,module,exports) {
-/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-'use strict';
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = function () {};
-
-if ("development" !== 'production') {
-  warning = function (condition, format, args) {
-    var len = arguments.length;
-    args = new Array(len > 2 ? len - 2 : 0);
-
-    for (var key = 2; key < len; key++) {
-      args[key - 2] = arguments[key];
-    }
-
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.length < 10 || /^[s\W]*$/.test(format)) {
-      throw new Error('The warning format should be able to uniquely identify this ' + 'warning. Please, use a more descriptive format than: ' + format);
+    if (format.indexOf('Failed Composite propType: ') === 0) {
+      return; // Ignore CompositeComponent proptype check.
     }
 
     if (!condition) {
-      var argIndex = 0;
-      var message = 'Warning: ' + format.replace(/%s/g, function () {
-        return args[argIndex++];
-      });
-
-      if (typeof console !== 'undefined') {
-        console.error(message);
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
       }
 
-      try {
-        // This error was thrown as a convenience so that you can use this stack
-        // to find the callsite that caused this warning to fire.
-        throw new Error(message);
-      } catch (x) {}
+      printWarning.apply(undefined, [format].concat(args));
     }
   };
 }
 
 module.exports = warning;
-},{}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+},{"./emptyFunction":"../node_modules/fbjs/lib/emptyFunction.js"}],"../node_modules/create-react-context/lib/implementation.js":[function(require,module,exports) {
 'use strict';
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
 
-var invariant = function (condition, format, a, b, c, d, e, f) {
-  if ("development" !== 'production') {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
+exports.__esModule = true;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _gud = require('gud');
+
+var _gud2 = _interopRequireDefault(_gud);
+
+var _warning = require('fbjs/lib/warning');
+
+var _warning2 = _interopRequireDefault(_warning);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
-  if (!condition) {
-    var error;
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
 
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var MAX_SIGNED_31_BIT_INT = 1073741823; // Inlined Object.is polyfill.
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+
+function objectIs(x, y) {
+  if (x === y) {
+    return x !== 0 || 1 / x === 1 / y;
+  } else {
+    return x !== x && y !== y;
+  }
+}
+
+function createEventEmitter(value) {
+  var handlers = [];
+  return {
+    on: function on(handler) {
+      handlers.push(handler);
+    },
+    off: function off(handler) {
+      handlers = handlers.filter(function (h) {
+        return h !== handler;
+      });
+    },
+    get: function get() {
+      return value;
+    },
+    set: function set(newValue, changedBits) {
+      value = newValue;
+      handlers.forEach(function (handler) {
+        return handler(value, changedBits);
+      });
+    }
+  };
+}
+
+function onlyChild(children) {
+  return Array.isArray(children) ? children[0] : children;
+}
+
+function createReactContext(defaultValue, calculateChangedBits) {
+  var _Provider$childContex, _Consumer$contextType;
+
+  var contextProp = '__create-react-context-' + (0, _gud2.default)() + '__';
+
+  var Provider = function (_Component) {
+    _inherits(Provider, _Component);
+
+    function Provider() {
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, Provider);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.emitter = createEventEmitter(_this.props.value), _temp), _possibleConstructorReturn(_this, _ret);
     }
 
-    error.framesToPop = 1; // we don't care about invariant's own frame
+    Provider.prototype.getChildContext = function getChildContext() {
+      var _ref;
 
-    throw error;
+      return _ref = {}, _ref[contextProp] = this.emitter, _ref;
+    };
+
+    Provider.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+      if (this.props.value !== nextProps.value) {
+        var oldValue = this.props.value;
+        var newValue = nextProps.value;
+        var changedBits = void 0;
+
+        if (objectIs(oldValue, newValue)) {
+          changedBits = 0; // No change
+        } else {
+          changedBits = typeof calculateChangedBits === 'function' ? calculateChangedBits(oldValue, newValue) : MAX_SIGNED_31_BIT_INT;
+
+          if ("development" !== 'production') {
+            (0, _warning2.default)((changedBits & MAX_SIGNED_31_BIT_INT) === changedBits, 'calculateChangedBits: Expected the return value to be a ' + '31-bit integer. Instead received: %s', changedBits);
+          }
+
+          changedBits |= 0;
+
+          if (changedBits !== 0) {
+            this.emitter.set(nextProps.value, changedBits);
+          }
+        }
+      }
+    };
+
+    Provider.prototype.render = function render() {
+      return this.props.children;
+    };
+
+    return Provider;
+  }(_react.Component);
+
+  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = _propTypes2.default.object.isRequired, _Provider$childContex);
+
+  var Consumer = function (_Component2) {
+    _inherits(Consumer, _Component2);
+
+    function Consumer() {
+      var _temp2, _this2, _ret2;
+
+      _classCallCheck(this, Consumer);
+
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.state = {
+        value: _this2.getValue()
+      }, _this2.onUpdate = function (newValue, changedBits) {
+        var observedBits = _this2.observedBits | 0;
+
+        if ((observedBits & changedBits) !== 0) {
+          _this2.setState({
+            value: _this2.getValue()
+          });
+        }
+      }, _temp2), _possibleConstructorReturn(_this2, _ret2);
+    }
+
+    Consumer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+      var observedBits = nextProps.observedBits;
+      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
+      : observedBits;
+    };
+
+    Consumer.prototype.componentDidMount = function componentDidMount() {
+      if (this.context[contextProp]) {
+        this.context[contextProp].on(this.onUpdate);
+      }
+
+      var observedBits = this.props.observedBits;
+      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
+      : observedBits;
+    };
+
+    Consumer.prototype.componentWillUnmount = function componentWillUnmount() {
+      if (this.context[contextProp]) {
+        this.context[contextProp].off(this.onUpdate);
+      }
+    };
+
+    Consumer.prototype.getValue = function getValue() {
+      if (this.context[contextProp]) {
+        return this.context[contextProp].get();
+      } else {
+        return defaultValue;
+      }
+    };
+
+    Consumer.prototype.render = function render() {
+      return onlyChild(this.props.children)(this.state.value);
+    };
+
+    return Consumer;
+  }(_react.Component);
+
+  Consumer.contextTypes = (_Consumer$contextType = {}, _Consumer$contextType[contextProp] = _propTypes2.default.object, _Consumer$contextType);
+  return {
+    Provider: Provider,
+    Consumer: Consumer
+  };
+}
+
+exports.default = createReactContext;
+module.exports = exports['default'];
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","gud":"../node_modules/gud/index.js","fbjs/lib/warning":"../node_modules/fbjs/lib/warning.js"}],"../node_modules/create-react-context/lib/index.js":[function(require,module,exports) {
+'use strict';
+
+exports.__esModule = true;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _implementation = require('./implementation');
+
+var _implementation2 = _interopRequireDefault(_implementation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _react2.default.createContext || _implementation2.default;
+module.exports = exports['default'];
+},{"react":"../node_modules/react/index.js","./implementation":"../node_modules/create-react-context/lib/implementation.js"}],"../node_modules/tiny-warning/dist/tiny-warning.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var isProduction = "development" === 'production';
+
+function warning(condition, message) {
+  if (!isProduction) {
+    if (condition) {
+      return;
+    }
+
+    var text = "Warning: " + message;
+
+    if (typeof console !== 'undefined') {
+      console.warn(text);
+    }
+
+    try {
+      throw Error(text);
+    } catch (x) {}
   }
-};
+}
 
-module.exports = invariant;
+var _default = warning;
+exports.default = _default;
+},{}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _extends;
+
+function _extends() {
+  exports.default = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
 },{}],"../node_modules/resolve-pathname/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -42679,56 +42929,88 @@ function valueEqual(a, b) {
 
 var _default = valueEqual;
 exports.default = _default;
-},{}],"../node_modules/history/es/PathUtils.js":[function(require,module,exports) {
+},{}],"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createPath = exports.parsePath = exports.stripTrailingSlash = exports.stripBasename = exports.hasBasename = exports.stripLeadingSlash = exports.addLeadingSlash = void 0;
+exports.default = void 0;
+var isProduction = "development" === 'production';
+var prefix = 'Invariant failed';
 
-var addLeadingSlash = function addLeadingSlash(path) {
-  return path.charAt(0) === '/' ? path : '/' + path;
-};
+function invariant(condition, message) {
+  if (condition) {
+    return;
+  }
 
-exports.addLeadingSlash = addLeadingSlash;
+  if (isProduction) {
+    throw new Error(prefix);
+  } else {
+    throw new Error(prefix + ": " + (message || ''));
+  }
+}
 
-var stripLeadingSlash = function stripLeadingSlash(path) {
-  return path.charAt(0) === '/' ? path.substr(1) : path;
-};
+var _default = invariant;
+exports.default = _default;
+},{}],"../node_modules/history/esm/history.js":[function(require,module,exports) {
+"use strict";
 
-exports.stripLeadingSlash = stripLeadingSlash;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createBrowserHistory = createBrowserHistory;
+exports.createHashHistory = createHashHistory;
+exports.createMemoryHistory = createMemoryHistory;
+exports.createLocation = createLocation;
+exports.locationsAreEqual = locationsAreEqual;
+exports.parsePath = parsePath;
+exports.createPath = createPath;
 
-var hasBasename = function hasBasename(path, prefix) {
-  return new RegExp('^' + prefix + '(\\/|\\?|#|$)', 'i').test(path);
-};
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
 
-exports.hasBasename = hasBasename;
+var _resolvePathname = _interopRequireDefault(require("resolve-pathname"));
 
-var stripBasename = function stripBasename(path, prefix) {
+var _valueEqual = _interopRequireDefault(require("value-equal"));
+
+var _tinyWarning = _interopRequireDefault(require("tiny-warning"));
+
+var _tinyInvariant = _interopRequireDefault(require("tiny-invariant"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function addLeadingSlash(path) {
+  return path.charAt(0) === "/" ? path : "/" + path;
+}
+
+function stripLeadingSlash(path) {
+  return path.charAt(0) === "/" ? path.substr(1) : path;
+}
+
+function hasBasename(path, prefix) {
+  return new RegExp("^" + prefix + "(\\/|\\?|#|$)", "i").test(path);
+}
+
+function stripBasename(path, prefix) {
   return hasBasename(path, prefix) ? path.substr(prefix.length) : path;
-};
+}
 
-exports.stripBasename = stripBasename;
+function stripTrailingSlash(path) {
+  return path.charAt(path.length - 1) === "/" ? path.slice(0, -1) : path;
+}
 
-var stripTrailingSlash = function stripTrailingSlash(path) {
-  return path.charAt(path.length - 1) === '/' ? path.slice(0, -1) : path;
-};
-
-exports.stripTrailingSlash = stripTrailingSlash;
-
-var parsePath = function parsePath(path) {
-  var pathname = path || '/';
-  var search = '';
-  var hash = '';
-  var hashIndex = pathname.indexOf('#');
+function parsePath(path) {
+  var pathname = path || "/";
+  var search = "";
+  var hash = "";
+  var hashIndex = pathname.indexOf("#");
 
   if (hashIndex !== -1) {
     hash = pathname.substr(hashIndex);
     pathname = pathname.substr(0, hashIndex);
   }
 
-  var searchIndex = pathname.indexOf('?');
+  var searchIndex = pathname.indexOf("?");
 
   if (searchIndex !== -1) {
     search = pathname.substr(searchIndex);
@@ -42737,76 +43019,43 @@ var parsePath = function parsePath(path) {
 
   return {
     pathname: pathname,
-    search: search === '?' ? '' : search,
-    hash: hash === '#' ? '' : hash
+    search: search === "?" ? "" : search,
+    hash: hash === "#" ? "" : hash
   };
-};
+}
 
-exports.parsePath = parsePath;
-
-var createPath = function createPath(location) {
+function createPath(location) {
   var pathname = location.pathname,
       search = location.search,
       hash = location.hash;
-  var path = pathname || '/';
-  if (search && search !== '?') path += search.charAt(0) === '?' ? search : '?' + search;
-  if (hash && hash !== '#') path += hash.charAt(0) === '#' ? hash : '#' + hash;
+  var path = pathname || "/";
+  if (search && search !== "?") path += search.charAt(0) === "?" ? search : "?" + search;
+  if (hash && hash !== "#") path += hash.charAt(0) === "#" ? hash : "#" + hash;
   return path;
-};
+}
 
-exports.createPath = createPath;
-},{}],"../node_modules/history/es/LocationUtils.js":[function(require,module,exports) {
-"use strict";
+function createLocation(path, state, key, currentLocation) {
+  var location;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.locationsAreEqual = exports.createLocation = void 0;
-
-var _resolvePathname = _interopRequireDefault(require("resolve-pathname"));
-
-var _valueEqual = _interopRequireDefault(require("value-equal"));
-
-var _PathUtils = require("./PathUtils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-var createLocation = function createLocation(path, state, key, currentLocation) {
-  var location = void 0;
-
-  if (typeof path === 'string') {
+  if (typeof path === "string") {
     // Two-arg form: push(path, state)
-    location = (0, _PathUtils.parsePath)(path);
+    location = parsePath(path);
     location.state = state;
   } else {
     // One-arg form: push(location)
-    location = _extends({}, path);
-    if (location.pathname === undefined) location.pathname = '';
+    location = (0, _extends2.default)({}, path);
+    if (location.pathname === undefined) location.pathname = "";
 
     if (location.search) {
-      if (location.search.charAt(0) !== '?') location.search = '?' + location.search;
+      if (location.search.charAt(0) !== "?") location.search = "?" + location.search;
     } else {
-      location.search = '';
+      location.search = "";
     }
 
     if (location.hash) {
-      if (location.hash.charAt(0) !== '#') location.hash = '#' + location.hash;
+      if (location.hash.charAt(0) !== "#") location.hash = "#" + location.hash;
     } else {
-      location.hash = '';
+      location.hash = "";
     }
 
     if (state !== undefined && location.state === undefined) location.state = state;
@@ -42816,7 +43065,7 @@ var createLocation = function createLocation(path, state, key, currentLocation) 
     location.pathname = decodeURI(location.pathname);
   } catch (e) {
     if (e instanceof URIError) {
-      throw new URIError('Pathname "' + location.pathname + '" could not be decoded. ' + 'This is likely caused by an invalid percent-encoding.');
+      throw new URIError('Pathname "' + location.pathname + '" could not be decoded. ' + "This is likely caused by an invalid percent-encoding.");
     } else {
       throw e;
     }
@@ -42828,61 +43077,46 @@ var createLocation = function createLocation(path, state, key, currentLocation) 
     // Resolve incomplete/relative pathname relative to current location.
     if (!location.pathname) {
       location.pathname = currentLocation.pathname;
-    } else if (location.pathname.charAt(0) !== '/') {
+    } else if (location.pathname.charAt(0) !== "/") {
       location.pathname = (0, _resolvePathname.default)(location.pathname, currentLocation.pathname);
     }
   } else {
     // When there is no prior location and pathname is empty, set it to /
     if (!location.pathname) {
-      location.pathname = '/';
+      location.pathname = "/";
     }
   }
 
   return location;
-};
+}
 
-exports.createLocation = createLocation;
-
-var locationsAreEqual = function locationsAreEqual(a, b) {
+function locationsAreEqual(a, b) {
   return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && (0, _valueEqual.default)(a.state, b.state);
-};
+}
 
-exports.locationsAreEqual = locationsAreEqual;
-},{"resolve-pathname":"../node_modules/resolve-pathname/index.js","value-equal":"../node_modules/value-equal/index.js","./PathUtils":"../node_modules/history/es/PathUtils.js"}],"../node_modules/history/es/createTransitionManager.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var createTransitionManager = function createTransitionManager() {
+function createTransitionManager() {
   var prompt = null;
 
-  var setPrompt = function setPrompt(nextPrompt) {
-    (0, _warning.default)(prompt == null, 'A history supports only one prompt at a time');
+  function setPrompt(nextPrompt) {
+    "development" !== "production" ? (0, _tinyWarning.default)(prompt == null, "A history supports only one prompt at a time") : void 0;
     prompt = nextPrompt;
     return function () {
       if (prompt === nextPrompt) prompt = null;
     };
-  };
+  }
 
-  var confirmTransitionTo = function confirmTransitionTo(location, action, getUserConfirmation, callback) {
+  function confirmTransitionTo(location, action, getUserConfirmation, callback) {
     // TODO: If another transition starts while we're still confirming
     // the previous one, we may end up in a weird state. Figure out the
     // best way to handle this.
     if (prompt != null) {
-      var result = typeof prompt === 'function' ? prompt(location, action) : prompt;
+      var result = typeof prompt === "function" ? prompt(location, action) : prompt;
 
-      if (typeof result === 'string') {
-        if (typeof getUserConfirmation === 'function') {
+      if (typeof result === "string") {
+        if (typeof getUserConfirmation === "function") {
           getUserConfirmation(result, callback);
         } else {
-          (0, _warning.default)(false, 'A history needs a getUserConfirmation function in order to use a prompt message');
+          "development" !== "production" ? (0, _tinyWarning.default)(false, "A history needs a getUserConfirmation function in order to use a prompt message") : void 0;
           callback(true);
         }
       } else {
@@ -42892,16 +43126,16 @@ var createTransitionManager = function createTransitionManager() {
     } else {
       callback(true);
     }
-  };
+  }
 
   var listeners = [];
 
-  var appendListener = function appendListener(fn) {
+  function appendListener(fn) {
     var isActive = true;
 
-    var listener = function listener() {
-      if (isActive) fn.apply(undefined, arguments);
-    };
+    function listener() {
+      if (isActive) fn.apply(void 0, arguments);
+    }
 
     listeners.push(listener);
     return function () {
@@ -42910,17 +43144,17 @@ var createTransitionManager = function createTransitionManager() {
         return item !== listener;
       });
     };
-  };
+  }
 
-  var notifyListeners = function notifyListeners() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  function notifyListeners() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
     listeners.forEach(function (listener) {
-      return listener.apply(undefined, args);
+      return listener.apply(void 0, args);
     });
-  };
+  }
 
   return {
     setPrompt: setPrompt,
@@ -42928,36 +43162,13 @@ var createTransitionManager = function createTransitionManager() {
     appendListener: appendListener,
     notifyListeners: notifyListeners
   };
-};
+}
 
-var _default = createTransitionManager;
-exports.default = _default;
-},{"warning":"../node_modules/history/node_modules/warning/browser.js"}],"../node_modules/history/es/DOMUtils.js":[function(require,module,exports) {
-"use strict";
+var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isExtraneousPopstateEvent = exports.supportsGoWithoutReloadUsingHash = exports.supportsPopStateOnHashChange = exports.supportsHistory = exports.getConfirmation = exports.removeEventListener = exports.addEventListener = exports.canUseDOM = void 0;
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-exports.canUseDOM = canUseDOM;
-
-var addEventListener = function addEventListener(node, event, listener) {
-  return node.addEventListener ? node.addEventListener(event, listener, false) : node.attachEvent('on' + event, listener);
-};
-
-exports.addEventListener = addEventListener;
-
-var removeEventListener = function removeEventListener(node, event, listener) {
-  return node.removeEventListener ? node.removeEventListener(event, listener, false) : node.detachEvent('on' + event, listener);
-};
-
-exports.removeEventListener = removeEventListener;
-
-var getConfirmation = function getConfirmation(message, callback) {
-  return callback(window.confirm(message));
-}; // eslint-disable-line no-alert
-
+function getConfirmation(message, callback) {
+  callback(window.confirm(message)); // eslint-disable-line no-alert
+}
 /**
  * Returns true if the HTML5 history API is supported. Taken from Modernizr.
  *
@@ -42967,34 +43178,28 @@ var getConfirmation = function getConfirmation(message, callback) {
  */
 
 
-exports.getConfirmation = getConfirmation;
-
-var supportsHistory = function supportsHistory() {
+function supportsHistory() {
   var ua = window.navigator.userAgent;
-  if ((ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) && ua.indexOf('Mobile Safari') !== -1 && ua.indexOf('Chrome') === -1 && ua.indexOf('Windows Phone') === -1) return false;
-  return window.history && 'pushState' in window.history;
-};
+  if ((ua.indexOf("Android 2.") !== -1 || ua.indexOf("Android 4.0") !== -1) && ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Chrome") === -1 && ua.indexOf("Windows Phone") === -1) return false;
+  return window.history && "pushState" in window.history;
+}
 /**
  * Returns true if browser fires popstate on hash change.
  * IE10 and IE11 do not.
  */
 
 
-exports.supportsHistory = supportsHistory;
-
-var supportsPopStateOnHashChange = function supportsPopStateOnHashChange() {
-  return window.navigator.userAgent.indexOf('Trident') === -1;
-};
+function supportsPopStateOnHashChange() {
+  return window.navigator.userAgent.indexOf("Trident") === -1;
+}
 /**
  * Returns false if using go(n) with hash history causes a full page reload.
  */
 
 
-exports.supportsPopStateOnHashChange = supportsPopStateOnHashChange;
-
-var supportsGoWithoutReloadUsingHash = function supportsGoWithoutReloadUsingHash() {
-  return window.navigator.userAgent.indexOf('Firefox') === -1;
-};
+function supportsGoWithoutReloadUsingHash() {
+  return window.navigator.userAgent.indexOf("Firefox") === -1;
+}
 /**
  * Returns true if a given popstate event is an extraneous WebKit event.
  * Accounts for the fact that Chrome on iOS fires real popstate events
@@ -43002,59 +43207,14 @@ var supportsGoWithoutReloadUsingHash = function supportsGoWithoutReloadUsingHash
  */
 
 
-exports.supportsGoWithoutReloadUsingHash = supportsGoWithoutReloadUsingHash;
+function isExtraneousPopstateEvent(event) {
+  event.state === undefined && navigator.userAgent.indexOf("CriOS") === -1;
+}
 
-var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
-  return event.state === undefined && navigator.userAgent.indexOf('CriOS') === -1;
-};
+var PopStateEvent = "popstate";
+var HashChangeEvent = "hashchange";
 
-exports.isExtraneousPopstateEvent = isExtraneousPopstateEvent;
-},{}],"../node_modules/history/es/createBrowserHistory.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _LocationUtils = require("./LocationUtils");
-
-var _PathUtils = require("./PathUtils");
-
-var _createTransitionManager = _interopRequireDefault(require("./createTransitionManager"));
-
-var _DOMUtils = require("./DOMUtils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-var PopStateEvent = 'popstate';
-var HashChangeEvent = 'hashchange';
-
-var getHistoryState = function getHistoryState() {
+function getHistoryState() {
   try {
     return window.history.state || {};
   } catch (e) {
@@ -43062,28 +43222,32 @@ var getHistoryState = function getHistoryState() {
     // See https://github.com/ReactTraining/history/pull/289
     return {};
   }
-};
+}
 /**
  * Creates a history object that uses the HTML5 history API including
  * pushState, replaceState, and the popstate event.
  */
 
 
-var createBrowserHistory = function createBrowserHistory() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  (0, _invariant.default)(_DOMUtils.canUseDOM, 'Browser history needs a DOM');
-  var globalHistory = window.history;
-  var canUseHistory = (0, _DOMUtils.supportsHistory)();
-  var needsHashChangeListener = !(0, _DOMUtils.supportsPopStateOnHashChange)();
-  var _props$forceRefresh = props.forceRefresh,
-      forceRefresh = _props$forceRefresh === undefined ? false : _props$forceRefresh,
-      _props$getUserConfirm = props.getUserConfirmation,
-      getUserConfirmation = _props$getUserConfirm === undefined ? _DOMUtils.getConfirmation : _props$getUserConfirm,
-      _props$keyLength = props.keyLength,
-      keyLength = _props$keyLength === undefined ? 6 : _props$keyLength;
-  var basename = props.basename ? (0, _PathUtils.stripTrailingSlash)((0, _PathUtils.addLeadingSlash)(props.basename)) : '';
+function createBrowserHistory(props) {
+  if (props === void 0) {
+    props = {};
+  }
 
-  var getDOMLocation = function getDOMLocation(historyState) {
+  !canUseDOM ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "Browser history needs a DOM") : (0, _tinyInvariant.default)(false) : void 0;
+  var globalHistory = window.history;
+  var canUseHistory = supportsHistory();
+  var needsHashChangeListener = !supportsPopStateOnHashChange();
+  var _props = props,
+      _props$forceRefresh = _props.forceRefresh,
+      forceRefresh = _props$forceRefresh === void 0 ? false : _props$forceRefresh,
+      _props$getUserConfirm = _props.getUserConfirmation,
+      getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm,
+      _props$keyLength = _props.keyLength,
+      keyLength = _props$keyLength === void 0 ? 6 : _props$keyLength;
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
+
+  function getDOMLocation(historyState) {
     var _ref = historyState || {},
         key = _ref.key,
         state = _ref.state;
@@ -43093,42 +43257,41 @@ var createBrowserHistory = function createBrowserHistory() {
         search = _window$location.search,
         hash = _window$location.hash;
     var path = pathname + search + hash;
-    (0, _warning.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
-    return (0, _LocationUtils.createLocation)(path, state, key);
-  };
+    "development" !== "production" ? (0, _tinyWarning.default)(!basename || hasBasename(path, basename), "You are attempting to use a basename on a page whose URL path does not begin " + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : void 0;
+    if (basename) path = stripBasename(path, basename);
+    return createLocation(path, state, key);
+  }
 
-  var createKey = function createKey() {
+  function createKey() {
     return Math.random().toString(36).substr(2, keyLength);
-  };
+  }
 
-  var transitionManager = (0, _createTransitionManager.default)();
+  var transitionManager = createTransitionManager();
 
-  var setState = function setState(nextState) {
-    _extends(history, nextState);
-
+  function setState(nextState) {
+    (0, _extends2.default)(history, nextState);
     history.length = globalHistory.length;
     transitionManager.notifyListeners(history.location, history.action);
-  };
+  }
 
-  var handlePopState = function handlePopState(event) {
+  function handlePopState(event) {
     // Ignore extraneous popstate events in WebKit.
-    if ((0, _DOMUtils.isExtraneousPopstateEvent)(event)) return;
+    if (isExtraneousPopstateEvent(event)) return;
     handlePop(getDOMLocation(event.state));
-  };
+  }
 
-  var handleHashChange = function handleHashChange() {
+  function handleHashChange() {
     handlePop(getDOMLocation(getHistoryState()));
-  };
+  }
 
   var forceNextPop = false;
 
-  var handlePop = function handlePop(location) {
+  function handlePop(location) {
     if (forceNextPop) {
       forceNextPop = false;
       setState();
     } else {
-      var action = 'POP';
+      var action = "POP";
       transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
         if (ok) {
           setState({
@@ -43140,9 +43303,9 @@ var createBrowserHistory = function createBrowserHistory() {
         }
       });
     }
-  };
+  }
 
-  var revertPop = function revertPop(fromLocation) {
+  function revertPop(fromLocation) {
     var toLocation = history.location; // TODO: We could probably make this more reliable by
     // keeping a list of keys we've seen in sessionStorage.
     // Instead, we just default to 0 for keys we don't know.
@@ -43157,19 +43320,19 @@ var createBrowserHistory = function createBrowserHistory() {
       forceNextPop = true;
       go(delta);
     }
-  };
+  }
 
   var initialLocation = getDOMLocation(getHistoryState());
   var allKeys = [initialLocation.key]; // Public interface
 
-  var createHref = function createHref(location) {
-    return basename + (0, _PathUtils.createPath)(location);
-  };
+  function createHref(location) {
+    return basename + createPath(location);
+  }
 
-  var push = function push(path, state) {
-    (0, _warning.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-    var action = 'PUSH';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
+  function push(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(typeof path === "object" && path.state !== undefined && state !== undefined), "You should avoid providing a 2nd state argument to push when the 1st " + "argument is a location-like object that already has state; it is ignored") : void 0;
+    var action = "PUSH";
+    var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
       var href = createHref(location);
@@ -43195,16 +43358,16 @@ var createBrowserHistory = function createBrowserHistory() {
           });
         }
       } else {
-        (0, _warning.default)(state === undefined, 'Browser history cannot push state in browsers that do not support HTML5 history');
+        "development" !== "production" ? (0, _tinyWarning.default)(state === undefined, "Browser history cannot push state in browsers that do not support HTML5 history") : void 0;
         window.location.href = href;
       }
     });
-  };
+  }
 
-  var replace = function replace(path, state) {
-    (0, _warning.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-    var action = 'REPLACE';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
+  function replace(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(typeof path === "object" && path.state !== undefined && state !== undefined), "You should avoid providing a 2nd state argument to replace when the 1st " + "argument is a location-like object that already has state; it is ignored") : void 0;
+    var action = "REPLACE";
+    var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
       var href = createHref(location);
@@ -43228,42 +43391,45 @@ var createBrowserHistory = function createBrowserHistory() {
           });
         }
       } else {
-        (0, _warning.default)(state === undefined, 'Browser history cannot replace state in browsers that do not support HTML5 history');
+        "development" !== "production" ? (0, _tinyWarning.default)(state === undefined, "Browser history cannot replace state in browsers that do not support HTML5 history") : void 0;
         window.location.replace(href);
       }
     });
-  };
+  }
 
-  var go = function go(n) {
+  function go(n) {
     globalHistory.go(n);
-  };
+  }
 
-  var goBack = function goBack() {
-    return go(-1);
-  };
+  function goBack() {
+    go(-1);
+  }
 
-  var goForward = function goForward() {
-    return go(1);
-  };
+  function goForward() {
+    go(1);
+  }
 
   var listenerCount = 0;
 
-  var checkDOMListeners = function checkDOMListeners(delta) {
+  function checkDOMListeners(delta) {
     listenerCount += delta;
 
     if (listenerCount === 1) {
-      (0, _DOMUtils.addEventListener)(window, PopStateEvent, handlePopState);
-      if (needsHashChangeListener) (0, _DOMUtils.addEventListener)(window, HashChangeEvent, handleHashChange);
+      window.addEventListener(PopStateEvent, handlePopState);
+      if (needsHashChangeListener) window.addEventListener(HashChangeEvent, handleHashChange);
     } else if (listenerCount === 0) {
-      (0, _DOMUtils.removeEventListener)(window, PopStateEvent, handlePopState);
-      if (needsHashChangeListener) (0, _DOMUtils.removeEventListener)(window, HashChangeEvent, handleHashChange);
+      window.removeEventListener(PopStateEvent, handlePopState);
+      if (needsHashChangeListener) window.removeEventListener(HashChangeEvent, handleHashChange);
     }
-  };
+  }
 
   var isBlocked = false;
 
-  var block = function block() {
-    var prompt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  function block(prompt) {
+    if (prompt === void 0) {
+      prompt = false;
+    }
+
     var unblock = transitionManager.setPrompt(prompt);
 
     if (!isBlocked) {
@@ -43279,20 +43445,20 @@ var createBrowserHistory = function createBrowserHistory() {
 
       return unblock();
     };
-  };
+  }
 
-  var listen = function listen(listener) {
+  function listen(listener) {
     var unlisten = transitionManager.appendListener(listener);
     checkDOMListeners(1);
     return function () {
       checkDOMListeners(-1);
       unlisten();
     };
-  };
+  }
 
   var history = {
     length: globalHistory.length,
-    action: 'POP',
+    action: "POP",
     location: initialLocation,
     createHref: createHref,
     push: push,
@@ -43304,117 +43470,82 @@ var createBrowserHistory = function createBrowserHistory() {
     listen: listen
   };
   return history;
-};
+}
 
-var _default = createBrowserHistory;
-exports.default = _default;
-},{"warning":"../node_modules/history/node_modules/warning/browser.js","invariant":"../node_modules/invariant/browser.js","./LocationUtils":"../node_modules/history/es/LocationUtils.js","./PathUtils":"../node_modules/history/es/PathUtils.js","./createTransitionManager":"../node_modules/history/es/createTransitionManager.js","./DOMUtils":"../node_modules/history/es/DOMUtils.js"}],"../node_modules/history/es/createHashHistory.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _LocationUtils = require("./LocationUtils");
-
-var _PathUtils = require("./PathUtils");
-
-var _createTransitionManager = _interopRequireDefault(require("./createTransitionManager"));
-
-var _DOMUtils = require("./DOMUtils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-var HashChangeEvent = 'hashchange';
+var HashChangeEvent$1 = "hashchange";
 var HashPathCoders = {
   hashbang: {
     encodePath: function encodePath(path) {
-      return path.charAt(0) === '!' ? path : '!/' + (0, _PathUtils.stripLeadingSlash)(path);
+      return path.charAt(0) === "!" ? path : "!/" + stripLeadingSlash(path);
     },
     decodePath: function decodePath(path) {
-      return path.charAt(0) === '!' ? path.substr(1) : path;
+      return path.charAt(0) === "!" ? path.substr(1) : path;
     }
   },
   noslash: {
-    encodePath: _PathUtils.stripLeadingSlash,
-    decodePath: _PathUtils.addLeadingSlash
+    encodePath: stripLeadingSlash,
+    decodePath: addLeadingSlash
   },
   slash: {
-    encodePath: _PathUtils.addLeadingSlash,
-    decodePath: _PathUtils.addLeadingSlash
+    encodePath: addLeadingSlash,
+    decodePath: addLeadingSlash
   }
 };
 
-var getHashPath = function getHashPath() {
+function getHashPath() {
   // We can't use window.location.hash here because it's not
   // consistent across browsers - Firefox will pre-decode it!
   var href = window.location.href;
-  var hashIndex = href.indexOf('#');
-  return hashIndex === -1 ? '' : href.substring(hashIndex + 1);
-};
+  var hashIndex = href.indexOf("#");
+  return hashIndex === -1 ? "" : href.substring(hashIndex + 1);
+}
 
-var pushHashPath = function pushHashPath(path) {
-  return window.location.hash = path;
-};
+function pushHashPath(path) {
+  window.location.hash = path;
+}
 
-var replaceHashPath = function replaceHashPath(path) {
-  var hashIndex = window.location.href.indexOf('#');
-  window.location.replace(window.location.href.slice(0, hashIndex >= 0 ? hashIndex : 0) + '#' + path);
-};
+function replaceHashPath(path) {
+  var hashIndex = window.location.href.indexOf("#");
+  window.location.replace(window.location.href.slice(0, hashIndex >= 0 ? hashIndex : 0) + "#" + path);
+}
 
-var createHashHistory = function createHashHistory() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  (0, _invariant.default)(_DOMUtils.canUseDOM, 'Hash history needs a DOM');
+function createHashHistory(props) {
+  if (props === void 0) {
+    props = {};
+  }
+
+  !canUseDOM ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "Hash history needs a DOM") : (0, _tinyInvariant.default)(false) : void 0;
   var globalHistory = window.history;
-  var canGoWithoutReload = (0, _DOMUtils.supportsGoWithoutReloadUsingHash)();
-  var _props$getUserConfirm = props.getUserConfirmation,
-      getUserConfirmation = _props$getUserConfirm === undefined ? _DOMUtils.getConfirmation : _props$getUserConfirm,
-      _props$hashType = props.hashType,
-      hashType = _props$hashType === undefined ? 'slash' : _props$hashType;
-  var basename = props.basename ? (0, _PathUtils.stripTrailingSlash)((0, _PathUtils.addLeadingSlash)(props.basename)) : '';
+  var canGoWithoutReload = supportsGoWithoutReloadUsingHash();
+  var _props = props,
+      _props$getUserConfirm = _props.getUserConfirmation,
+      getUserConfirmation = _props$getUserConfirm === void 0 ? getConfirmation : _props$getUserConfirm,
+      _props$hashType = _props.hashType,
+      hashType = _props$hashType === void 0 ? "slash" : _props$hashType;
+  var basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : "";
   var _HashPathCoders$hashT = HashPathCoders[hashType],
       encodePath = _HashPathCoders$hashT.encodePath,
       decodePath = _HashPathCoders$hashT.decodePath;
 
-  var getDOMLocation = function getDOMLocation() {
+  function getDOMLocation() {
     var path = decodePath(getHashPath());
-    (0, _warning.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
-    return (0, _LocationUtils.createLocation)(path);
-  };
+    "development" !== "production" ? (0, _tinyWarning.default)(!basename || hasBasename(path, basename), "You are attempting to use a basename on a page whose URL path does not begin " + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : void 0;
+    if (basename) path = stripBasename(path, basename);
+    return createLocation(path);
+  }
 
-  var transitionManager = (0, _createTransitionManager.default)();
+  var transitionManager = createTransitionManager();
 
-  var setState = function setState(nextState) {
-    _extends(history, nextState);
-
+  function setState(nextState) {
+    (0, _extends2.default)(history, nextState);
     history.length = globalHistory.length;
     transitionManager.notifyListeners(history.location, history.action);
-  };
+  }
 
   var forceNextPop = false;
   var ignorePath = null;
 
-  var handleHashChange = function handleHashChange() {
+  function handleHashChange() {
     var path = getHashPath();
     var encodedPath = encodePath(path);
 
@@ -43424,21 +43555,21 @@ var createHashHistory = function createHashHistory() {
     } else {
       var location = getDOMLocation();
       var prevLocation = history.location;
-      if (!forceNextPop && (0, _LocationUtils.locationsAreEqual)(prevLocation, location)) return; // A hashchange doesn't always == location change.
+      if (!forceNextPop && locationsAreEqual(prevLocation, location)) return; // A hashchange doesn't always == location change.
 
-      if (ignorePath === (0, _PathUtils.createPath)(location)) return; // Ignore this change; we already setState in push/replace.
+      if (ignorePath === createPath(location)) return; // Ignore this change; we already setState in push/replace.
 
       ignorePath = null;
       handlePop(location);
     }
-  };
+  }
 
-  var handlePop = function handlePop(location) {
+  function handlePop(location) {
     if (forceNextPop) {
       forceNextPop = false;
       setState();
     } else {
-      var action = 'POP';
+      var action = "POP";
       transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
         if (ok) {
           setState({
@@ -43450,16 +43581,16 @@ var createHashHistory = function createHashHistory() {
         }
       });
     }
-  };
+  }
 
-  var revertPop = function revertPop(fromLocation) {
+  function revertPop(fromLocation) {
     var toLocation = history.location; // TODO: We could probably make this more reliable by
     // keeping a list of paths we've seen in sessionStorage.
     // Instead, we just default to 0 for paths we don't know.
 
-    var toIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(toLocation));
+    var toIndex = allPaths.lastIndexOf(createPath(toLocation));
     if (toIndex === -1) toIndex = 0;
-    var fromIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(fromLocation));
+    var fromIndex = allPaths.lastIndexOf(createPath(fromLocation));
     if (fromIndex === -1) fromIndex = 0;
     var delta = toIndex - fromIndex;
 
@@ -43467,26 +43598,26 @@ var createHashHistory = function createHashHistory() {
       forceNextPop = true;
       go(delta);
     }
-  }; // Ensure the hash is encoded properly before doing anything else.
+  } // Ensure the hash is encoded properly before doing anything else.
 
 
   var path = getHashPath();
   var encodedPath = encodePath(path);
   if (path !== encodedPath) replaceHashPath(encodedPath);
   var initialLocation = getDOMLocation();
-  var allPaths = [(0, _PathUtils.createPath)(initialLocation)]; // Public interface
+  var allPaths = [createPath(initialLocation)]; // Public interface
 
-  var createHref = function createHref(location) {
-    return '#' + encodePath(basename + (0, _PathUtils.createPath)(location));
-  };
+  function createHref(location) {
+    return "#" + encodePath(basename + createPath(location));
+  }
 
-  var push = function push(path, state) {
-    (0, _warning.default)(state === undefined, 'Hash history cannot push state; it is ignored');
-    var action = 'PUSH';
-    var location = (0, _LocationUtils.createLocation)(path, undefined, undefined, history.location);
+  function push(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(state === undefined, "Hash history cannot push state; it is ignored") : void 0;
+    var action = "PUSH";
+    var location = createLocation(path, undefined, undefined, history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
-      var path = (0, _PathUtils.createPath)(location);
+      var path = createPath(location);
       var encodedPath = encodePath(basename + path);
       var hashChanged = getHashPath() !== encodedPath;
 
@@ -43496,7 +43627,7 @@ var createHashHistory = function createHashHistory() {
         // is that other hash histories in the page will consider it a POP.
         ignorePath = path;
         pushHashPath(encodedPath);
-        var prevIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(history.location));
+        var prevIndex = allPaths.lastIndexOf(createPath(history.location));
         var nextPaths = allPaths.slice(0, prevIndex === -1 ? 0 : prevIndex + 1);
         nextPaths.push(path);
         allPaths = nextPaths;
@@ -43505,19 +43636,19 @@ var createHashHistory = function createHashHistory() {
           location: location
         });
       } else {
-        (0, _warning.default)(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack');
+        "development" !== "production" ? (0, _tinyWarning.default)(false, "Hash history cannot PUSH the same path; a new entry will not be added to the history stack") : void 0;
         setState();
       }
     });
-  };
+  }
 
-  var replace = function replace(path, state) {
-    (0, _warning.default)(state === undefined, 'Hash history cannot replace state; it is ignored');
-    var action = 'REPLACE';
-    var location = (0, _LocationUtils.createLocation)(path, undefined, undefined, history.location);
+  function replace(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(state === undefined, "Hash history cannot replace state; it is ignored") : void 0;
+    var action = "REPLACE";
+    var location = createLocation(path, undefined, undefined, history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
-      var path = (0, _PathUtils.createPath)(location);
+      var path = createPath(location);
       var encodedPath = encodePath(basename + path);
       var hashChanged = getHashPath() !== encodedPath;
 
@@ -43529,44 +43660,47 @@ var createHashHistory = function createHashHistory() {
         replaceHashPath(encodedPath);
       }
 
-      var prevIndex = allPaths.indexOf((0, _PathUtils.createPath)(history.location));
+      var prevIndex = allPaths.indexOf(createPath(history.location));
       if (prevIndex !== -1) allPaths[prevIndex] = path;
       setState({
         action: action,
         location: location
       });
     });
-  };
+  }
 
-  var go = function go(n) {
-    (0, _warning.default)(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser');
+  function go(n) {
+    "development" !== "production" ? (0, _tinyWarning.default)(canGoWithoutReload, "Hash history go(n) causes a full page reload in this browser") : void 0;
     globalHistory.go(n);
-  };
+  }
 
-  var goBack = function goBack() {
-    return go(-1);
-  };
+  function goBack() {
+    go(-1);
+  }
 
-  var goForward = function goForward() {
-    return go(1);
-  };
+  function goForward() {
+    go(1);
+  }
 
   var listenerCount = 0;
 
-  var checkDOMListeners = function checkDOMListeners(delta) {
+  function checkDOMListeners(delta) {
     listenerCount += delta;
 
     if (listenerCount === 1) {
-      (0, _DOMUtils.addEventListener)(window, HashChangeEvent, handleHashChange);
+      window.addEventListener(HashChangeEvent$1, handleHashChange);
     } else if (listenerCount === 0) {
-      (0, _DOMUtils.removeEventListener)(window, HashChangeEvent, handleHashChange);
+      window.removeEventListener(HashChangeEvent$1, handleHashChange);
     }
-  };
+  }
 
   var isBlocked = false;
 
-  var block = function block() {
-    var prompt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  function block(prompt) {
+    if (prompt === void 0) {
+      prompt = false;
+    }
+
     var unblock = transitionManager.setPrompt(prompt);
 
     if (!isBlocked) {
@@ -43582,20 +43716,20 @@ var createHashHistory = function createHashHistory() {
 
       return unblock();
     };
-  };
+  }
 
-  var listen = function listen(listener) {
+  function listen(listener) {
     var unlisten = transitionManager.appendListener(listener);
     checkDOMListeners(1);
     return function () {
       checkDOMListeners(-1);
       unlisten();
     };
-  };
+  }
 
   var history = {
     length: globalHistory.length,
-    action: 'POP',
+    action: "POP",
     location: initialLocation,
     createHref: createHref,
     push: push,
@@ -43607,89 +43741,52 @@ var createHashHistory = function createHashHistory() {
     listen: listen
   };
   return history;
-};
+}
 
-var _default = createHashHistory;
-exports.default = _default;
-},{"warning":"../node_modules/history/node_modules/warning/browser.js","invariant":"../node_modules/invariant/browser.js","./LocationUtils":"../node_modules/history/es/LocationUtils.js","./PathUtils":"../node_modules/history/es/PathUtils.js","./createTransitionManager":"../node_modules/history/es/createTransitionManager.js","./DOMUtils":"../node_modules/history/es/DOMUtils.js"}],"../node_modules/history/es/createMemoryHistory.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _PathUtils = require("./PathUtils");
-
-var _LocationUtils = require("./LocationUtils");
-
-var _createTransitionManager = _interopRequireDefault(require("./createTransitionManager"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-var clamp = function clamp(n, lowerBound, upperBound) {
+function clamp(n, lowerBound, upperBound) {
   return Math.min(Math.max(n, lowerBound), upperBound);
-};
+}
 /**
  * Creates a history object that stores locations in memory.
  */
 
 
-var createMemoryHistory = function createMemoryHistory() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var getUserConfirmation = props.getUserConfirmation,
-      _props$initialEntries = props.initialEntries,
-      initialEntries = _props$initialEntries === undefined ? ['/'] : _props$initialEntries,
-      _props$initialIndex = props.initialIndex,
-      initialIndex = _props$initialIndex === undefined ? 0 : _props$initialIndex,
-      _props$keyLength = props.keyLength,
-      keyLength = _props$keyLength === undefined ? 6 : _props$keyLength;
-  var transitionManager = (0, _createTransitionManager.default)();
+function createMemoryHistory(props) {
+  if (props === void 0) {
+    props = {};
+  }
 
-  var setState = function setState(nextState) {
-    _extends(history, nextState);
+  var _props = props,
+      getUserConfirmation = _props.getUserConfirmation,
+      _props$initialEntries = _props.initialEntries,
+      initialEntries = _props$initialEntries === void 0 ? ["/"] : _props$initialEntries,
+      _props$initialIndex = _props.initialIndex,
+      initialIndex = _props$initialIndex === void 0 ? 0 : _props$initialIndex,
+      _props$keyLength = _props.keyLength,
+      keyLength = _props$keyLength === void 0 ? 6 : _props$keyLength;
+  var transitionManager = createTransitionManager();
 
+  function setState(nextState) {
+    (0, _extends2.default)(history, nextState);
     history.length = history.entries.length;
     transitionManager.notifyListeners(history.location, history.action);
-  };
+  }
 
-  var createKey = function createKey() {
+  function createKey() {
     return Math.random().toString(36).substr(2, keyLength);
-  };
+  }
 
   var index = clamp(initialIndex, 0, initialEntries.length - 1);
   var entries = initialEntries.map(function (entry) {
-    return typeof entry === 'string' ? (0, _LocationUtils.createLocation)(entry, undefined, createKey()) : (0, _LocationUtils.createLocation)(entry, undefined, entry.key || createKey());
+    return typeof entry === "string" ? createLocation(entry, undefined, createKey()) : createLocation(entry, undefined, entry.key || createKey());
   }); // Public interface
 
-  var createHref = _PathUtils.createPath;
+  var createHref = createPath;
 
-  var push = function push(path, state) {
-    (0, _warning.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-    var action = 'PUSH';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
+  function push(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(typeof path === "object" && path.state !== undefined && state !== undefined), "You should avoid providing a 2nd state argument to push when the 1st " + "argument is a location-like object that already has state; it is ignored") : void 0;
+    var action = "PUSH";
+    var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
       var prevIndex = history.index;
@@ -43709,12 +43806,12 @@ var createMemoryHistory = function createMemoryHistory() {
         entries: nextEntries
       });
     });
-  };
+  }
 
-  var replace = function replace(path, state) {
-    (0, _warning.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-    var action = 'REPLACE';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
+  function replace(path, state) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(typeof path === "object" && path.state !== undefined && state !== undefined), "You should avoid providing a 2nd state argument to replace when the 1st " + "argument is a location-like object that already has state; it is ignored") : void 0;
+    var action = "REPLACE";
+    var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (!ok) return;
       history.entries[history.index] = location;
@@ -43723,11 +43820,11 @@ var createMemoryHistory = function createMemoryHistory() {
         location: location
       });
     });
-  };
+  }
 
-  var go = function go(n) {
+  function go(n) {
     var nextIndex = clamp(history.index + n, 0, history.entries.length - 1);
-    var action = 'POP';
+    var action = "POP";
     var location = history.entries[nextIndex];
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
       if (ok) {
@@ -43742,33 +43839,36 @@ var createMemoryHistory = function createMemoryHistory() {
         setState();
       }
     });
-  };
+  }
 
-  var goBack = function goBack() {
-    return go(-1);
-  };
+  function goBack() {
+    go(-1);
+  }
 
-  var goForward = function goForward() {
-    return go(1);
-  };
+  function goForward() {
+    go(1);
+  }
 
-  var canGo = function canGo(n) {
+  function canGo(n) {
     var nextIndex = history.index + n;
     return nextIndex >= 0 && nextIndex < history.entries.length;
-  };
+  }
 
-  var block = function block() {
-    var prompt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  function block(prompt) {
+    if (prompt === void 0) {
+      prompt = false;
+    }
+
     return transitionManager.setPrompt(prompt);
-  };
+  }
 
-  var listen = function listen(listener) {
+  function listen(listener) {
     return transitionManager.appendListener(listener);
-  };
+  }
 
   var history = {
     length: entries.length,
-    action: 'POP',
+    action: "POP",
     location: entries[index],
     index: index,
     entries: entries,
@@ -43783,682 +43883,8 @@ var createMemoryHistory = function createMemoryHistory() {
     listen: listen
   };
   return history;
-};
-
-var _default = createMemoryHistory;
-exports.default = _default;
-},{"warning":"../node_modules/history/node_modules/warning/browser.js","./PathUtils":"../node_modules/history/es/PathUtils.js","./LocationUtils":"../node_modules/history/es/LocationUtils.js","./createTransitionManager":"../node_modules/history/es/createTransitionManager.js"}],"../node_modules/history/es/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "createBrowserHistory", {
-  enumerable: true,
-  get: function () {
-    return _createBrowserHistory2.default;
-  }
-});
-Object.defineProperty(exports, "createHashHistory", {
-  enumerable: true,
-  get: function () {
-    return _createHashHistory2.default;
-  }
-});
-Object.defineProperty(exports, "createMemoryHistory", {
-  enumerable: true,
-  get: function () {
-    return _createMemoryHistory2.default;
-  }
-});
-Object.defineProperty(exports, "createLocation", {
-  enumerable: true,
-  get: function () {
-    return _LocationUtils.createLocation;
-  }
-});
-Object.defineProperty(exports, "locationsAreEqual", {
-  enumerable: true,
-  get: function () {
-    return _LocationUtils.locationsAreEqual;
-  }
-});
-Object.defineProperty(exports, "parsePath", {
-  enumerable: true,
-  get: function () {
-    return _PathUtils.parsePath;
-  }
-});
-Object.defineProperty(exports, "createPath", {
-  enumerable: true,
-  get: function () {
-    return _PathUtils.createPath;
-  }
-});
-
-var _createBrowserHistory2 = _interopRequireDefault(require("./createBrowserHistory"));
-
-var _createHashHistory2 = _interopRequireDefault(require("./createHashHistory"));
-
-var _createMemoryHistory2 = _interopRequireDefault(require("./createMemoryHistory"));
-
-var _LocationUtils = require("./LocationUtils");
-
-var _PathUtils = require("./PathUtils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./createBrowserHistory":"../node_modules/history/es/createBrowserHistory.js","./createHashHistory":"../node_modules/history/es/createHashHistory.js","./createMemoryHistory":"../node_modules/history/es/createMemoryHistory.js","./LocationUtils":"../node_modules/history/es/LocationUtils.js","./PathUtils":"../node_modules/history/es/PathUtils.js"}],"../node_modules/react-router/es/Router.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
 }
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for putting history on context.
- */
-var Router = function (_React$Component) {
-  _inherits(Router, _React$Component);
-
-  function Router() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, Router);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
-      match: _this.computeMatch(_this.props.history.location.pathname)
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  Router.prototype.getChildContext = function getChildContext() {
-    return {
-      router: _extends({}, this.context.router, {
-        history: this.props.history,
-        route: {
-          location: this.props.history.location,
-          match: this.state.match
-        }
-      })
-    };
-  };
-
-  Router.prototype.computeMatch = function computeMatch(pathname) {
-    return {
-      path: "/",
-      url: "/",
-      params: {},
-      isExact: pathname === "/"
-    };
-  };
-
-  Router.prototype.componentWillMount = function componentWillMount() {
-    var _this2 = this;
-
-    var _props = this.props,
-        children = _props.children,
-        history = _props.history;
-    (0, _invariant.default)(children == null || _react.default.Children.count(children) === 1, "A <Router> may have only one child element"); // Do this here so we can setState when a <Redirect> changes the
-    // location in componentWillMount. This happens e.g. when doing
-    // server rendering using a <StaticRouter>.
-
-    this.unlisten = history.listen(function () {
-      _this2.setState({
-        match: _this2.computeMatch(history.location.pathname)
-      });
-    });
-  };
-
-  Router.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    (0, _warning.default)(this.props.history === nextProps.history, "You cannot change <Router history>");
-  };
-
-  Router.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.unlisten();
-  };
-
-  Router.prototype.render = function render() {
-    var children = this.props.children;
-    return children ? _react.default.Children.only(children) : null;
-  };
-
-  return Router;
-}(_react.default.Component);
-
-Router.propTypes = {
-  history: _propTypes.default.object.isRequired,
-  children: _propTypes.default.node
-};
-Router.contextTypes = {
-  router: _propTypes.default.object
-};
-Router.childContextTypes = {
-  router: _propTypes.default.object.isRequired
-};
-var _default = Router;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","invariant":"../node_modules/invariant/browser.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js"}],"../node_modules/react-router-dom/es/Router.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Router = _interopRequireDefault(require("react-router/es/Router"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _Router.default;
-exports.default = _default;
-},{"react-router/es/Router":"../node_modules/react-router/es/Router.js"}],"../node_modules/react-router-dom/es/BrowserRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _history = require("history");
-
-var _Router = _interopRequireDefault(require("./Router"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for a <Router> that uses HTML5 history.
- */
-var BrowserRouter = function (_React$Component) {
-  _inherits(BrowserRouter, _React$Component);
-
-  function BrowserRouter() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, BrowserRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.history = (0, _history.createBrowserHistory)(_this.props), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  BrowserRouter.prototype.componentWillMount = function componentWillMount() {
-    (0, _warning.default)(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.");
-  };
-
-  BrowserRouter.prototype.render = function render() {
-    return _react.default.createElement(_Router.default, {
-      history: this.history,
-      children: this.props.children
-    });
-  };
-
-  return BrowserRouter;
-}(_react.default.Component);
-
-BrowserRouter.propTypes = {
-  basename: _propTypes.default.string,
-  forceRefresh: _propTypes.default.bool,
-  getUserConfirmation: _propTypes.default.func,
-  keyLength: _propTypes.default.number,
-  children: _propTypes.default.node
-};
-var _default = BrowserRouter;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","history":"../node_modules/history/es/index.js","./Router":"../node_modules/react-router-dom/es/Router.js"}],"../node_modules/react-router-dom/es/HashRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _history = require("history");
-
-var _Router = _interopRequireDefault(require("./Router"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for a <Router> that uses window.location.hash.
- */
-var HashRouter = function (_React$Component) {
-  _inherits(HashRouter, _React$Component);
-
-  function HashRouter() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, HashRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.history = (0, _history.createHashHistory)(_this.props), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  HashRouter.prototype.componentWillMount = function componentWillMount() {
-    (0, _warning.default)(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.");
-  };
-
-  HashRouter.prototype.render = function render() {
-    return _react.default.createElement(_Router.default, {
-      history: this.history,
-      children: this.props.children
-    });
-  };
-
-  return HashRouter;
-}(_react.default.Component);
-
-HashRouter.propTypes = {
-  basename: _propTypes.default.string,
-  getUserConfirmation: _propTypes.default.func,
-  hashType: _propTypes.default.oneOf(["hashbang", "noslash", "slash"]),
-  children: _propTypes.default.node
-};
-var _default = HashRouter;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","history":"../node_modules/history/es/index.js","./Router":"../node_modules/react-router-dom/es/Router.js"}],"../node_modules/react-router-dom/es/Link.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _history = require("history");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _objectWithoutProperties(obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var isModifiedEvent = function isModifiedEvent(event) {
-  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-};
-/**
- * The public API for rendering a history-aware <a>.
- */
-
-
-var Link = function (_React$Component) {
-  _inherits(Link, _React$Component);
-
-  function Link() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, Link);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.handleClick = function (event) {
-      if (_this.props.onClick) _this.props.onClick(event);
-
-      if (!event.defaultPrevented && // onClick prevented default
-      event.button === 0 && // ignore everything but left clicks
-      !_this.props.target && // let browser handle "target=_blank" etc.
-      !isModifiedEvent(event) // ignore clicks with modifier keys
-      ) {
-          event.preventDefault();
-          var history = _this.context.router.history;
-          var _this$props = _this.props,
-              replace = _this$props.replace,
-              to = _this$props.to;
-
-          if (replace) {
-            history.replace(to);
-          } else {
-            history.push(to);
-          }
-        }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  Link.prototype.render = function render() {
-    var _props = this.props,
-        replace = _props.replace,
-        to = _props.to,
-        innerRef = _props.innerRef,
-        props = _objectWithoutProperties(_props, ["replace", "to", "innerRef"]); // eslint-disable-line no-unused-vars
-
-
-    (0, _invariant.default)(this.context.router, "You should not use <Link> outside a <Router>");
-    (0, _invariant.default)(to !== undefined, 'You must specify the "to" property');
-    var history = this.context.router.history;
-    var location = typeof to === "string" ? (0, _history.createLocation)(to, null, null, history.location) : to;
-    var href = history.createHref(location);
-    return _react.default.createElement("a", _extends({}, props, {
-      onClick: this.handleClick,
-      href: href,
-      ref: innerRef
-    }));
-  };
-
-  return Link;
-}(_react.default.Component);
-
-Link.propTypes = {
-  onClick: _propTypes.default.func,
-  target: _propTypes.default.string,
-  replace: _propTypes.default.bool,
-  to: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]).isRequired,
-  innerRef: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func])
-};
-Link.defaultProps = {
-  replace: false
-};
-Link.contextTypes = {
-  router: _propTypes.default.shape({
-    history: _propTypes.default.shape({
-      push: _propTypes.default.func.isRequired,
-      replace: _propTypes.default.func.isRequired,
-      createHref: _propTypes.default.func.isRequired
-    }).isRequired
-  }).isRequired
-};
-var _default = Link;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","invariant":"../node_modules/invariant/browser.js","history":"../node_modules/history/es/index.js"}],"../node_modules/react-router/es/MemoryRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _history = require("history");
-
-var _Router = _interopRequireDefault(require("./Router"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for a <Router> that stores location in memory.
- */
-var MemoryRouter = function (_React$Component) {
-  _inherits(MemoryRouter, _React$Component);
-
-  function MemoryRouter() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, MemoryRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.history = (0, _history.createMemoryHistory)(_this.props), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  MemoryRouter.prototype.componentWillMount = function componentWillMount() {
-    (0, _warning.default)(!this.props.history, "<MemoryRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { MemoryRouter as Router }`.");
-  };
-
-  MemoryRouter.prototype.render = function render() {
-    return _react.default.createElement(_Router.default, {
-      history: this.history,
-      children: this.props.children
-    });
-  };
-
-  return MemoryRouter;
-}(_react.default.Component);
-
-MemoryRouter.propTypes = {
-  initialEntries: _propTypes.default.array,
-  initialIndex: _propTypes.default.number,
-  getUserConfirmation: _propTypes.default.func,
-  keyLength: _propTypes.default.number,
-  children: _propTypes.default.node
-};
-var _default = MemoryRouter;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","history":"../node_modules/history/es/index.js","./Router":"../node_modules/react-router/es/Router.js"}],"../node_modules/react-router-dom/es/MemoryRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _MemoryRouter = _interopRequireDefault(require("react-router/es/MemoryRouter"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _MemoryRouter.default;
-exports.default = _default;
-},{"react-router/es/MemoryRouter":"../node_modules/react-router/es/MemoryRouter.js"}],"../node_modules/isarray/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","resolve-pathname":"../node_modules/resolve-pathname/index.js","value-equal":"../node_modules/value-equal/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/isarray/index.js":[function(require,module,exports) {
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -44891,861 +44317,573 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
-},{"isarray":"../node_modules/isarray/index.js"}],"../node_modules/react-router/es/matchPath.js":[function(require,module,exports) {
+},{"isarray":"../node_modules/isarray/index.js"}],"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = _objectWithoutPropertiesLoose;
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+},{}],"../node_modules/react-router-dom/node_modules/react-router/esm/react-router.js":[function(require,module,exports) {
+var global = arguments[3];
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Prompt = Prompt;
+exports.Redirect = Redirect;
+exports.generatePath = generatePath;
+exports.matchPath = matchPath;
+exports.withRouter = withRouter;
+exports.__RouterContext = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.MemoryRouter = void 0;
+
+var _createReactContext = _interopRequireDefault(require("create-react-context"));
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _tinyWarning = _interopRequireDefault(require("tiny-warning"));
+
+var _history = require("history");
+
+var _tinyInvariant = _interopRequireDefault(require("tiny-invariant"));
 
 var _pathToRegexp = _interopRequireDefault(require("path-to-regexp"));
 
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _reactIs = require("react-is");
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _hoistNonReactStatics = _interopRequireDefault(require("hoist-non-react-statics"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var patternCache = {};
-var cacheLimit = 10000;
-var cacheCount = 0;
+// TODO: Replace with React.createContext once we can assume React 16+
+var createNamedContext = function createNamedContext(name) {
+  var context = (0, _createReactContext.default)();
+  context.Provider.displayName = name + ".Provider";
+  context.Consumer.displayName = name + ".Consumer";
+  return context;
+};
 
-var compilePath = function compilePath(pattern, options) {
-  var cacheKey = "" + options.end + options.strict + options.sensitive;
-  var cache = patternCache[cacheKey] || (patternCache[cacheKey] = {});
-  if (cache[pattern]) return cache[pattern];
-  var keys = [];
-  var re = (0, _pathToRegexp.default)(pattern, keys, options);
-  var compiledPattern = {
-    re: re,
-    keys: keys
+var context =
+/*#__PURE__*/
+createNamedContext('Router');
+/**
+ * The public API for putting history on context.
+ */
+
+exports.__RouterContext = context;
+
+var Router =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Router, _React$Component);
+
+  Router.computeRootMatch = function computeRootMatch(pathname) {
+    return {
+      path: "/",
+      url: "/",
+      params: {},
+      isExact: pathname === "/"
+    };
   };
 
-  if (cacheCount < cacheLimit) {
-    cache[pattern] = compiledPattern;
-    cacheCount++;
+  function Router(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.state = {
+      location: props.history.location
+    }; // This is a bit of a hack. We have to start listening for location
+    // changes here in the constructor in case there are any <Redirect>s
+    // on the initial render. If there are, they will replace/push when
+    // they mount and since cDM fires in children before parents, we may
+    // get a new location before the <Router> is mounted.
+
+    _this._isMounted = false;
+    _this._pendingLocation = null;
+
+    if (!props.staticContext) {
+      _this.unlisten = props.history.listen(function (location) {
+        if (_this._isMounted) {
+          _this.setState({
+            location: location
+          });
+        } else {
+          _this._pendingLocation = location;
+        }
+      });
+    }
+
+    return _this;
   }
 
-  return compiledPattern;
-};
+  var _proto = Router.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this._isMounted = true;
+
+    if (this._pendingLocation) {
+      this.setState({
+        location: this._pendingLocation
+      });
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    if (this.unlisten) this.unlisten();
+  };
+
+  _proto.render = function render() {
+    return _react.default.createElement(context.Provider, {
+      children: this.props.children || null,
+      value: {
+        history: this.props.history,
+        location: this.state.location,
+        match: Router.computeRootMatch(this.state.location.pathname),
+        staticContext: this.props.staticContext
+      }
+    });
+  };
+
+  return Router;
+}(_react.default.Component);
+
+exports.Router = Router;
+
+if ("development" !== "production") {
+  Router.propTypes = {
+    children: _propTypes.default.node,
+    history: _propTypes.default.object.isRequired,
+    staticContext: _propTypes.default.object
+  };
+
+  Router.prototype.componentDidUpdate = function (prevProps) {
+    "development" !== "production" ? (0, _tinyWarning.default)(prevProps.history === this.props.history, "You cannot change <Router history>") : void 0;
+  };
+}
 /**
- * Public API for matching a URL pathname to a path pattern.
+ * The public API for a <Router> that stores location in memory.
  */
 
 
-var matchPath = function matchPath(pathname) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var parent = arguments[2];
+var MemoryRouter =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(MemoryRouter, _React$Component);
+
+  function MemoryRouter() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.history = (0, _history.createMemoryHistory)(_this.props);
+    return _this;
+  }
+
+  var _proto = MemoryRouter.prototype;
+
+  _proto.render = function render() {
+    return _react.default.createElement(Router, {
+      history: this.history,
+      children: this.props.children
+    });
+  };
+
+  return MemoryRouter;
+}(_react.default.Component);
+
+exports.MemoryRouter = MemoryRouter;
+
+if ("development" !== "production") {
+  MemoryRouter.propTypes = {
+    initialEntries: _propTypes.default.array,
+    initialIndex: _propTypes.default.number,
+    getUserConfirmation: _propTypes.default.func,
+    keyLength: _propTypes.default.number,
+    children: _propTypes.default.node
+  };
+
+  MemoryRouter.prototype.componentDidMount = function () {
+    "development" !== "production" ? (0, _tinyWarning.default)(!this.props.history, "<MemoryRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { MemoryRouter as Router }`.") : void 0;
+  };
+}
+
+var Lifecycle =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Lifecycle, _React$Component);
+
+  function Lifecycle() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = Lifecycle.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    if (this.props.onMount) this.props.onMount.call(this, this);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    if (this.props.onUpdate) this.props.onUpdate.call(this, this, prevProps);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    if (this.props.onUnmount) this.props.onUnmount.call(this, this);
+  };
+
+  _proto.render = function render() {
+    return null;
+  };
+
+  return Lifecycle;
+}(_react.default.Component);
+/**
+ * The public API for prompting the user before navigating away from a screen.
+ */
+
+
+function Prompt(_ref) {
+  var message = _ref.message,
+      _ref$when = _ref.when,
+      when = _ref$when === void 0 ? true : _ref$when;
+  return _react.default.createElement(context.Consumer, null, function (context$$1) {
+    !context$$1 ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <Prompt> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
+    if (!when || context$$1.staticContext) return null;
+    var method = context$$1.history.block;
+    return _react.default.createElement(Lifecycle, {
+      onMount: function onMount(self) {
+        self.release = method(message);
+      },
+      onUpdate: function onUpdate(self, prevProps) {
+        if (prevProps.message !== message) {
+          self.release();
+          self.release = method(message);
+        }
+      },
+      onUnmount: function onUnmount(self) {
+        self.release();
+      },
+      message: message
+    });
+  });
+}
+
+if ("development" !== "production") {
+  var messageType = _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.string]);
+
+  Prompt.propTypes = {
+    when: _propTypes.default.bool,
+    message: messageType.isRequired
+  };
+}
+
+var cache = {};
+var cacheLimit = 10000;
+var cacheCount = 0;
+
+function compilePath(path) {
+  if (cache[path]) return cache[path];
+
+  var generator = _pathToRegexp.default.compile(path);
+
+  if (cacheCount < cacheLimit) {
+    cache[path] = generator;
+    cacheCount++;
+  }
+
+  return generator;
+}
+/**
+ * Public API for generating a URL pathname from a path and parameters.
+ */
+
+
+function generatePath(path, params) {
+  if (path === void 0) {
+    path = "/";
+  }
+
+  if (params === void 0) {
+    params = {};
+  }
+
+  return path === "/" ? path : compilePath(path)(params, {
+    pretty: true
+  });
+}
+/**
+ * The public API for navigating programmatically with a component.
+ */
+
+
+function Redirect(_ref) {
+  var computedMatch = _ref.computedMatch,
+      to = _ref.to,
+      _ref$push = _ref.push,
+      push = _ref$push === void 0 ? false : _ref$push;
+  return _react.default.createElement(context.Consumer, null, function (context$$1) {
+    !context$$1 ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <Redirect> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
+    var history = context$$1.history,
+        staticContext = context$$1.staticContext;
+    var method = push ? history.push : history.replace;
+    var location = (0, _history.createLocation)(computedMatch ? typeof to === "string" ? generatePath(to, computedMatch.params) : (0, _extends2.default)({}, to, {
+      pathname: generatePath(to.pathname, computedMatch.params)
+    }) : to); // When rendering in a static context,
+    // set the new location immediately.
+
+    if (staticContext) {
+      method(location);
+      return null;
+    }
+
+    return _react.default.createElement(Lifecycle, {
+      onMount: function onMount() {
+        method(location);
+      },
+      onUpdate: function onUpdate(self, prevProps) {
+        if (!(0, _history.locationsAreEqual)(prevProps.to, location)) {
+          method(location);
+        }
+      },
+      to: to
+    });
+  });
+}
+
+if ("development" !== "production") {
+  Redirect.propTypes = {
+    push: _propTypes.default.bool,
+    from: _propTypes.default.string,
+    to: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]).isRequired
+  };
+}
+
+var cache$1 = {};
+var cacheLimit$1 = 10000;
+var cacheCount$1 = 0;
+
+function compilePath$1(path, options) {
+  var cacheKey = "" + options.end + options.strict + options.sensitive;
+  var pathCache = cache$1[cacheKey] || (cache$1[cacheKey] = {});
+  if (pathCache[path]) return pathCache[path];
+  var keys = [];
+  var regexp = (0, _pathToRegexp.default)(path, keys, options);
+  var result = {
+    regexp: regexp,
+    keys: keys
+  };
+
+  if (cacheCount$1 < cacheLimit$1) {
+    pathCache[path] = result;
+    cacheCount$1++;
+  }
+
+  return result;
+}
+/**
+ * Public API for matching a URL pathname to a path.
+ */
+
+
+function matchPath(pathname, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
   if (typeof options === "string") options = {
     path: options
   };
   var _options = options,
       path = _options.path,
       _options$exact = _options.exact,
-      exact = _options$exact === undefined ? false : _options$exact,
+      exact = _options$exact === void 0 ? false : _options$exact,
       _options$strict = _options.strict,
-      strict = _options$strict === undefined ? false : _options$strict,
+      strict = _options$strict === void 0 ? false : _options$strict,
       _options$sensitive = _options.sensitive,
-      sensitive = _options$sensitive === undefined ? false : _options$sensitive;
-  if (path == null) return parent;
+      sensitive = _options$sensitive === void 0 ? false : _options$sensitive;
+  var paths = [].concat(path);
+  return paths.reduce(function (matched, path) {
+    if (matched) return matched;
 
-  var _compilePath = compilePath(path, {
-    end: exact,
-    strict: strict,
-    sensitive: sensitive
-  }),
-      re = _compilePath.re,
-      keys = _compilePath.keys;
+    var _compilePath = compilePath$1(path, {
+      end: exact,
+      strict: strict,
+      sensitive: sensitive
+    }),
+        regexp = _compilePath.regexp,
+        keys = _compilePath.keys;
 
-  var match = re.exec(pathname);
-  if (!match) return null;
-  var url = match[0],
-      values = match.slice(1);
-  var isExact = pathname === url;
-  if (exact && !isExact) return null;
-  return {
-    path: path,
-    // the path pattern used to match
-    url: path === "/" && url === "" ? "/" : url,
-    // the matched portion of the URL
-    isExact: isExact,
-    // whether or not we matched exactly
-    params: keys.reduce(function (memo, key, index) {
-      memo[key.name] = values[index];
-      return memo;
-    }, {})
-  };
-};
-
-var _default = matchPath;
-exports.default = _default;
-},{"path-to-regexp":"../node_modules/path-to-regexp/index.js"}],"../node_modules/react-router/es/Route.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _matchPath = _interopRequireDefault(require("./matchPath"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
+    var match = regexp.exec(pathname);
+    if (!match) return null;
+    var url = match[0],
+        values = match.slice(1);
+    var isExact = pathname === url;
+    if (exact && !isExact) return null;
+    return {
+      path: path,
+      // the path used to match
+      url: path === "/" && url === "" ? "/" : url,
+      // the matched portion of the URL
+      isExact: isExact,
+      // whether or not we matched exactly
+      params: keys.reduce(function (memo, key, index) {
+        memo[key.name] = values[index];
+        return memo;
+      }, {})
+    };
+  }, null);
 }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var isEmptyChildren = function isEmptyChildren(children) {
+function isEmptyChildren(children) {
   return _react.default.Children.count(children) === 0;
-};
+}
 /**
  * The public API for matching a single path and rendering.
  */
 
 
-var Route = function (_React$Component) {
-  _inherits(Route, _React$Component);
+var Route =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Route, _React$Component);
 
   function Route() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, Route);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
-      match: _this.computeMatch(_this.props, _this.context.router)
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _React$Component.apply(this, arguments) || this;
   }
 
-  Route.prototype.getChildContext = function getChildContext() {
-    return {
-      router: _extends({}, this.context.router, {
-        route: {
-          location: this.props.location || this.context.router.route.location,
-          match: this.state.match
+  var _proto = Route.prototype;
+
+  _proto.render = function render() {
+    var _this = this;
+
+    return _react.default.createElement(context.Consumer, null, function (context$$1) {
+      !context$$1 ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <Route> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
+      var location = _this.props.location || context$$1.location;
+      var match = _this.props.computedMatch ? _this.props.computedMatch // <Switch> already computed the match for us
+      : _this.props.path ? matchPath(location.pathname, _this.props) : context$$1.match;
+      var props = (0, _extends2.default)({}, context$$1, {
+        location: location,
+        match: match
+      });
+      var _this$props = _this.props,
+          children = _this$props.children,
+          component = _this$props.component,
+          render = _this$props.render; // Preact uses an empty array as children by
+      // default, so use null if that's the case.
+
+      if (Array.isArray(children) && children.length === 0) {
+        children = null;
+      }
+
+      if (typeof children === "function") {
+        children = children(props);
+
+        if (children === undefined) {
+          if ("development" !== "production") {
+            var path = _this.props.path;
+            "development" !== "production" ? (0, _tinyWarning.default)(false, "You returned `undefined` from the `children` function of " + ("<Route" + (path ? " path=\"" + path + "\"" : "") + ">, but you ") + "should have returned a React element or `null`") : void 0;
+          }
+
+          children = null;
         }
-      })
-    };
-  };
+      }
 
-  Route.prototype.computeMatch = function computeMatch(_ref, router) {
-    var computedMatch = _ref.computedMatch,
-        location = _ref.location,
-        path = _ref.path,
-        strict = _ref.strict,
-        exact = _ref.exact,
-        sensitive = _ref.sensitive;
-    if (computedMatch) return computedMatch; // <Switch> already computed the match for us
-
-    (0, _invariant.default)(router, "You should not use <Route> or withRouter() outside a <Router>");
-    var route = router.route;
-    var pathname = (location || route.location).pathname;
-    return (0, _matchPath.default)(pathname, {
-      path: path,
-      strict: strict,
-      exact: exact,
-      sensitive: sensitive
-    }, route.match);
-  };
-
-  Route.prototype.componentWillMount = function componentWillMount() {
-    (0, _warning.default)(!(this.props.component && this.props.render), "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored");
-    (0, _warning.default)(!(this.props.component && this.props.children && !isEmptyChildren(this.props.children)), "You should not use <Route component> and <Route children> in the same route; <Route children> will be ignored");
-    (0, _warning.default)(!(this.props.render && this.props.children && !isEmptyChildren(this.props.children)), "You should not use <Route render> and <Route children> in the same route; <Route children> will be ignored");
-  };
-
-  Route.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
-    (0, _warning.default)(!(nextProps.location && !this.props.location), '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.');
-    (0, _warning.default)(!(!nextProps.location && this.props.location), '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.');
-    this.setState({
-      match: this.computeMatch(nextProps, nextContext.router)
+      return _react.default.createElement(context.Provider, {
+        value: props
+      }, children && !isEmptyChildren(children) ? children : props.match ? component ? _react.default.createElement(component, props) : render ? render(props) : null : null);
     });
-  };
-
-  Route.prototype.render = function render() {
-    var match = this.state.match;
-    var _props = this.props,
-        children = _props.children,
-        component = _props.component,
-        render = _props.render;
-    var _context$router = this.context.router,
-        history = _context$router.history,
-        route = _context$router.route,
-        staticContext = _context$router.staticContext;
-    var location = this.props.location || route.location;
-    var props = {
-      match: match,
-      location: location,
-      history: history,
-      staticContext: staticContext
-    };
-    if (component) return match ? _react.default.createElement(component, props) : null;
-    if (render) return match ? render(props) : null;
-    if (typeof children === "function") return children(props);
-    if (children && !isEmptyChildren(children)) return _react.default.Children.only(children);
-    return null;
   };
 
   return Route;
 }(_react.default.Component);
 
-Route.propTypes = {
-  computedMatch: _propTypes.default.object,
-  // private, from <Switch>
-  path: _propTypes.default.string,
-  exact: _propTypes.default.bool,
-  strict: _propTypes.default.bool,
-  sensitive: _propTypes.default.bool,
-  component: _propTypes.default.func,
-  render: _propTypes.default.func,
-  children: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.node]),
-  location: _propTypes.default.object
-};
-Route.contextTypes = {
-  router: _propTypes.default.shape({
-    history: _propTypes.default.object.isRequired,
-    route: _propTypes.default.object.isRequired,
-    staticContext: _propTypes.default.object
-  })
-};
-Route.childContextTypes = {
-  router: _propTypes.default.object.isRequired
-};
-var _default = Route;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","invariant":"../node_modules/invariant/browser.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./matchPath":"../node_modules/react-router/es/matchPath.js"}],"../node_modules/react-router-dom/es/Route.js":[function(require,module,exports) {
-"use strict";
+exports.Route = Route;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Route = _interopRequireDefault(require("react-router/es/Route"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _Route.default;
-exports.default = _default;
-},{"react-router/es/Route":"../node_modules/react-router/es/Route.js"}],"../node_modules/react-router-dom/es/NavLink.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _Route = _interopRequireDefault(require("./Route"));
-
-var _Link = _interopRequireDefault(require("./Link"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
+if ("development" !== "production") {
+  Route.propTypes = {
+    children: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.node]),
+    component: function component(props, propName) {
+      if (props[propName] && !(0, _reactIs.isValidElementType)(props[propName])) {
+        return new Error("Invalid prop 'component' supplied to 'Route': the prop is not a valid React component");
       }
-    }
-  }
+    },
+    exact: _propTypes.default.bool,
+    location: _propTypes.default.object,
+    path: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
+    render: _propTypes.default.func,
+    sensitive: _propTypes.default.bool,
+    strict: _propTypes.default.bool
+  };
 
-  return target;
-};
+  Route.prototype.componentDidMount = function () {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.component), "You should not use <Route component> and <Route children> in the same route; <Route component> will be ignored") : void 0;
+    "development" !== "production" ? (0, _tinyWarning.default)(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.render), "You should not use <Route render> and <Route children> in the same route; <Route render> will be ignored") : void 0;
+    "development" !== "production" ? (0, _tinyWarning.default)(!(this.props.component && this.props.render), "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored") : void 0;
+  };
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-function _objectWithoutProperties(obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
+  Route.prototype.componentDidUpdate = function (prevProps) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(this.props.location && !prevProps.location), '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : void 0;
+    "development" !== "production" ? (0, _tinyWarning.default)(!(!this.props.location && prevProps.location), '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : void 0;
+  };
 }
 
-/**
- * A <Link> wrapper that knows if it's "active" or not.
- */
-var NavLink = function NavLink(_ref) {
-  var to = _ref.to,
-      exact = _ref.exact,
-      strict = _ref.strict,
-      location = _ref.location,
-      activeClassName = _ref.activeClassName,
-      className = _ref.className,
-      activeStyle = _ref.activeStyle,
-      style = _ref.style,
-      getIsActive = _ref.isActive,
-      ariaCurrent = _ref["aria-current"],
-      rest = _objectWithoutProperties(_ref, ["to", "exact", "strict", "location", "activeClassName", "className", "activeStyle", "style", "isActive", "aria-current"]);
-
-  var path = (typeof to === "undefined" ? "undefined" : _typeof(to)) === "object" ? to.pathname : to; // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
-
-  var escapedPath = path && path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
-  return _react.default.createElement(_Route.default, {
-    path: escapedPath,
-    exact: exact,
-    strict: strict,
-    location: location,
-    children: function children(_ref2) {
-      var location = _ref2.location,
-          match = _ref2.match;
-      var isActive = !!(getIsActive ? getIsActive(match, location) : match);
-      return _react.default.createElement(_Link.default, _extends({
-        to: to,
-        className: isActive ? [className, activeClassName].filter(function (i) {
-          return i;
-        }).join(" ") : className,
-        style: isActive ? _extends({}, style, activeStyle) : style,
-        "aria-current": isActive && ariaCurrent || null
-      }, rest));
-    }
-  });
-};
-
-NavLink.propTypes = {
-  to: _Link.default.propTypes.to,
-  exact: _propTypes.default.bool,
-  strict: _propTypes.default.bool,
-  location: _propTypes.default.object,
-  activeClassName: _propTypes.default.string,
-  className: _propTypes.default.string,
-  activeStyle: _propTypes.default.object,
-  style: _propTypes.default.object,
-  isActive: _propTypes.default.func,
-  "aria-current": _propTypes.default.oneOf(["page", "step", "location", "date", "time", "true"])
-};
-NavLink.defaultProps = {
-  activeClassName: "active",
-  "aria-current": "page"
-};
-var _default = NavLink;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./Route":"../node_modules/react-router-dom/es/Route.js","./Link":"../node_modules/react-router-dom/es/Link.js"}],"../node_modules/react-router/es/Prompt.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for prompting the user before navigating away
- * from a screen with a component.
- */
-var Prompt = function (_React$Component) {
-  _inherits(Prompt, _React$Component);
-
-  function Prompt() {
-    _classCallCheck(this, Prompt);
-
-    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-  }
-
-  Prompt.prototype.enable = function enable(message) {
-    if (this.unblock) this.unblock();
-    this.unblock = this.context.router.history.block(message);
-  };
-
-  Prompt.prototype.disable = function disable() {
-    if (this.unblock) {
-      this.unblock();
-      this.unblock = null;
-    }
-  };
-
-  Prompt.prototype.componentWillMount = function componentWillMount() {
-    (0, _invariant.default)(this.context.router, "You should not use <Prompt> outside a <Router>");
-    if (this.props.when) this.enable(this.props.message);
-  };
-
-  Prompt.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (nextProps.when) {
-      if (!this.props.when || this.props.message !== nextProps.message) this.enable(nextProps.message);
-    } else {
-      this.disable();
-    }
-  };
-
-  Prompt.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.disable();
-  };
-
-  Prompt.prototype.render = function render() {
-    return null;
-  };
-
-  return Prompt;
-}(_react.default.Component);
-
-Prompt.propTypes = {
-  when: _propTypes.default.bool,
-  message: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.string]).isRequired
-};
-Prompt.defaultProps = {
-  when: true
-};
-Prompt.contextTypes = {
-  router: _propTypes.default.shape({
-    history: _propTypes.default.shape({
-      block: _propTypes.default.func.isRequired
-    }).isRequired
-  }).isRequired
-};
-var _default = Prompt;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","invariant":"../node_modules/invariant/browser.js"}],"../node_modules/react-router-dom/es/Prompt.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Prompt = _interopRequireDefault(require("react-router/es/Prompt"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _Prompt.default;
-exports.default = _default;
-},{"react-router/es/Prompt":"../node_modules/react-router/es/Prompt.js"}],"../node_modules/react-router/es/generatePath.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _pathToRegexp = _interopRequireDefault(require("path-to-regexp"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var patternCache = {};
-var cacheLimit = 10000;
-var cacheCount = 0;
-
-var compileGenerator = function compileGenerator(pattern) {
-  var cacheKey = pattern;
-  var cache = patternCache[cacheKey] || (patternCache[cacheKey] = {});
-  if (cache[pattern]) return cache[pattern];
-
-  var compiledGenerator = _pathToRegexp.default.compile(pattern);
-
-  if (cacheCount < cacheLimit) {
-    cache[pattern] = compiledGenerator;
-    cacheCount++;
-  }
-
-  return compiledGenerator;
-};
-/**
- * Public API for generating a URL pathname from a pattern and parameters.
- */
-
-
-var generatePath = function generatePath() {
-  var pattern = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "/";
-  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  if (pattern === "/") {
-    return pattern;
-  }
-
-  var generator = compileGenerator(pattern);
-  return generator(params, {
-    pretty: true
-  });
-};
-
-var _default = generatePath;
-exports.default = _default;
-},{"path-to-regexp":"../node_modules/path-to-regexp/index.js"}],"../node_modules/react-router/es/Redirect.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _history = require("history");
-
-var _generatePath = _interopRequireDefault(require("./generatePath"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-/**
- * The public API for updating the location programmatically
- * with a component.
- */
-var Redirect = function (_React$Component) {
-  _inherits(Redirect, _React$Component);
-
-  function Redirect() {
-    _classCallCheck(this, Redirect);
-
-    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
-  }
-
-  Redirect.prototype.isStatic = function isStatic() {
-    return this.context.router && this.context.router.staticContext;
-  };
-
-  Redirect.prototype.componentWillMount = function componentWillMount() {
-    (0, _invariant.default)(this.context.router, "You should not use <Redirect> outside a <Router>");
-    if (this.isStatic()) this.perform();
-  };
-
-  Redirect.prototype.componentDidMount = function componentDidMount() {
-    if (!this.isStatic()) this.perform();
-  };
-
-  Redirect.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
-    var prevTo = (0, _history.createLocation)(prevProps.to);
-    var nextTo = (0, _history.createLocation)(this.props.to);
-
-    if ((0, _history.locationsAreEqual)(prevTo, nextTo)) {
-      (0, _warning.default)(false, "You tried to redirect to the same route you're currently on: " + ("\"" + nextTo.pathname + nextTo.search + "\""));
-      return;
-    }
-
-    this.perform();
-  };
-
-  Redirect.prototype.computeTo = function computeTo(_ref) {
-    var computedMatch = _ref.computedMatch,
-        to = _ref.to;
-
-    if (computedMatch) {
-      if (typeof to === "string") {
-        return (0, _generatePath.default)(to, computedMatch.params);
-      } else {
-        return _extends({}, to, {
-          pathname: (0, _generatePath.default)(to.pathname, computedMatch.params)
-        });
-      }
-    }
-
-    return to;
-  };
-
-  Redirect.prototype.perform = function perform() {
-    var history = this.context.router.history;
-    var push = this.props.push;
-    var to = this.computeTo(this.props);
-
-    if (push) {
-      history.push(to);
-    } else {
-      history.replace(to);
-    }
-  };
-
-  Redirect.prototype.render = function render() {
-    return null;
-  };
-
-  return Redirect;
-}(_react.default.Component);
-
-Redirect.propTypes = {
-  computedMatch: _propTypes.default.object,
-  // private, from <Switch>
-  push: _propTypes.default.bool,
-  from: _propTypes.default.string,
-  to: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]).isRequired
-};
-Redirect.defaultProps = {
-  push: false
-};
-Redirect.contextTypes = {
-  router: _propTypes.default.shape({
-    history: _propTypes.default.shape({
-      push: _propTypes.default.func.isRequired,
-      replace: _propTypes.default.func.isRequired
-    }).isRequired,
-    staticContext: _propTypes.default.object
-  }).isRequired
-};
-var _default = Redirect;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","warning":"../node_modules/warning/warning.js","invariant":"../node_modules/invariant/browser.js","history":"../node_modules/history/es/index.js","./generatePath":"../node_modules/react-router/es/generatePath.js"}],"../node_modules/react-router-dom/es/Redirect.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Redirect = _interopRequireDefault(require("react-router/es/Redirect"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _Redirect.default;
-exports.default = _default;
-},{"react-router/es/Redirect":"../node_modules/react-router/es/Redirect.js"}],"../node_modules/react-router/es/StaticRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _history = require("history");
-
-var _Router = _interopRequireDefault(require("./Router"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _objectWithoutProperties(obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
-var addLeadingSlash = function addLeadingSlash(path) {
+function addLeadingSlash(path) {
   return path.charAt(0) === "/" ? path : "/" + path;
-};
+}
 
-var addBasename = function addBasename(basename, location) {
+function addBasename(basename, location) {
   if (!basename) return location;
-  return _extends({}, location, {
+  return (0, _extends2.default)({}, location, {
     pathname: addLeadingSlash(basename) + location.pathname
   });
-};
+}
 
-var stripBasename = function stripBasename(basename, location) {
+function stripBasename(basename, location) {
   if (!basename) return location;
   var base = addLeadingSlash(basename);
   if (location.pathname.indexOf(base) !== 0) return location;
-  return _extends({}, location, {
+  return (0, _extends2.default)({}, location, {
     pathname: location.pathname.substr(base.length)
   });
-};
+}
 
-var createURL = function createURL(location) {
+function createURL(location) {
   return typeof location === "string" ? location : (0, _history.createPath)(location);
-};
+}
 
-var staticHandler = function staticHandler(methodName) {
+function staticHandler(methodName) {
   return function () {
-    (0, _invariant.default)(false, "You cannot %s with <StaticRouter>", methodName);
+    "development" !== "production" ? (0, _tinyInvariant.default)(false, "You cannot %s with <StaticRouter>", methodName) : (0, _tinyInvariant.default)(false);
   };
-};
+}
 
-var noop = function noop() {};
+function noop() {}
 /**
  * The public top-level API for a "static" <Router>, so-called because it
  * can't actually change the current location. Instead, it just records
@@ -45754,62 +44892,64 @@ var noop = function noop() {};
  */
 
 
-var StaticRouter = function (_React$Component) {
-  _inherits(StaticRouter, _React$Component);
+var StaticRouter =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(StaticRouter, _React$Component);
 
   function StaticRouter() {
-    var _temp, _this, _ret;
+    var _this;
 
-    _classCallCheck(this, StaticRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.createHref = function (path) {
-      return addLeadingSlash(_this.props.basename + createURL(path));
-    }, _this.handlePush = function (location) {
-      var _this$props = _this.props,
-          basename = _this$props.basename,
-          context = _this$props.context;
-      context.action = "PUSH";
-      context.location = addBasename(basename, (0, _history.createLocation)(location));
-      context.url = createURL(context.location);
-    }, _this.handleReplace = function (location) {
-      var _this$props2 = _this.props,
-          basename = _this$props2.basename,
-          context = _this$props2.context;
-      context.action = "REPLACE";
-      context.location = addBasename(basename, (0, _history.createLocation)(location));
-      context.url = createURL(context.location);
-    }, _this.handleListen = function () {
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+
+    _this.handlePush = function (location) {
+      return _this.navigateTo(location, "PUSH");
+    };
+
+    _this.handleReplace = function (location) {
+      return _this.navigateTo(location, "REPLACE");
+    };
+
+    _this.handleListen = function () {
       return noop;
-    }, _this.handleBlock = function () {
+    };
+
+    _this.handleBlock = function () {
       return noop;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    return _this;
   }
 
-  StaticRouter.prototype.getChildContext = function getChildContext() {
-    return {
-      router: {
-        staticContext: this.props.context
-      }
-    };
+  var _proto = StaticRouter.prototype;
+
+  _proto.navigateTo = function navigateTo(location, action) {
+    var _this$props = this.props,
+        _this$props$basename = _this$props.basename,
+        basename = _this$props$basename === void 0 ? "" : _this$props$basename,
+        context = _this$props.context;
+    context.action = action;
+    context.location = addBasename(basename, (0, _history.createLocation)(location));
+    context.url = createURL(context.location);
   };
 
-  StaticRouter.prototype.componentWillMount = function componentWillMount() {
-    (0, _warning.default)(!this.props.history, "<StaticRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { StaticRouter as Router }`.");
-  };
-
-  StaticRouter.prototype.render = function render() {
-    var _props = this.props,
-        basename = _props.basename,
-        context = _props.context,
-        location = _props.location,
-        props = _objectWithoutProperties(_props, ["basename", "context", "location"]);
-
+  _proto.render = function render() {
+    var _this$props2 = this.props,
+        _this$props2$basename = _this$props2.basename,
+        basename = _this$props2$basename === void 0 ? "" : _this$props2$basename,
+        _this$props2$context = _this$props2.context,
+        context = _this$props2$context === void 0 ? {} : _this$props2$context,
+        _this$props2$location = _this$props2.location,
+        location = _this$props2$location === void 0 ? "/" : _this$props2$location,
+        rest = (0, _objectWithoutPropertiesLoose2.default)(_this$props2, ["basename", "context", "location"]);
     var history = {
-      createHref: this.createHref,
+      createHref: function createHref(path) {
+        return addLeadingSlash(basename + createURL(path));
+      },
       action: "POP",
       location: stripBasename(basename, (0, _history.createLocation)(location)),
       push: this.handlePush,
@@ -45820,330 +44960,100 @@ var StaticRouter = function (_React$Component) {
       listen: this.handleListen,
       block: this.handleBlock
     };
-    return _react.default.createElement(_Router.default, _extends({}, props, {
-      history: history
+    return _react.default.createElement(Router, (0, _extends2.default)({}, rest, {
+      history: history,
+      staticContext: context
     }));
   };
 
   return StaticRouter;
 }(_react.default.Component);
 
-StaticRouter.propTypes = {
-  basename: _propTypes.default.string,
-  context: _propTypes.default.object.isRequired,
-  location: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object])
-};
-StaticRouter.defaultProps = {
-  basename: "",
-  location: "/"
-};
-StaticRouter.childContextTypes = {
-  router: _propTypes.default.object.isRequired
-};
-var _default = StaticRouter;
-exports.default = _default;
-},{"warning":"../node_modules/warning/warning.js","invariant":"../node_modules/invariant/browser.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","history":"../node_modules/history/es/index.js","./Router":"../node_modules/react-router/es/Router.js"}],"../node_modules/react-router-dom/es/StaticRouter.js":[function(require,module,exports) {
-"use strict";
+exports.StaticRouter = StaticRouter;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+if ("development" !== "production") {
+  StaticRouter.propTypes = {
+    basename: _propTypes.default.string,
+    context: _propTypes.default.object,
+    location: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object])
+  };
 
-var _StaticRouter = _interopRequireDefault(require("react-router/es/StaticRouter"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _StaticRouter.default;
-exports.default = _default;
-},{"react-router/es/StaticRouter":"../node_modules/react-router/es/StaticRouter.js"}],"../node_modules/react-router/es/Switch.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _invariant = _interopRequireDefault(require("invariant"));
-
-var _matchPath = _interopRequireDefault(require("./matchPath"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
+  StaticRouter.prototype.componentDidMount = function () {
+    "development" !== "production" ? (0, _tinyWarning.default)(!this.props.history, "<StaticRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { StaticRouter as Router }`.") : void 0;
+  };
 }
-
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-
 /**
  * The public API for rendering the first <Route> that matches.
  */
-var Switch = function (_React$Component) {
-  _inherits(Switch, _React$Component);
+
+
+var Switch =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Switch, _React$Component);
 
   function Switch() {
-    _classCallCheck(this, Switch);
-
-    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+    return _React$Component.apply(this, arguments) || this;
   }
 
-  Switch.prototype.componentWillMount = function componentWillMount() {
-    (0, _invariant.default)(this.context.router, "You should not use <Switch> outside a <Router>");
-  };
+  var _proto = Switch.prototype;
 
-  Switch.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    (0, _warning.default)(!(nextProps.location && !this.props.location), '<Switch> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.');
-    (0, _warning.default)(!(!nextProps.location && this.props.location), '<Switch> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.');
-  };
+  _proto.render = function render() {
+    var _this = this;
 
-  Switch.prototype.render = function render() {
-    var route = this.context.router.route;
-    var children = this.props.children;
-    var location = this.props.location || route.location;
-    var match = void 0,
-        child = void 0;
+    return _react.default.createElement(context.Consumer, null, function (context$$1) {
+      !context$$1 ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <Switch> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
+      var location = _this.props.location || context$$1.location;
+      var element, match; // We use React.Children.forEach instead of React.Children.toArray().find()
+      // here because toArray adds keys to all child elements and we do not want
+      // to trigger an unmount/remount for two <Route>s that render the same
+      // component at different URLs.
 
-    _react.default.Children.forEach(children, function (element) {
-      if (match == null && _react.default.isValidElement(element)) {
-        var _element$props = element.props,
-            pathProp = _element$props.path,
-            exact = _element$props.exact,
-            strict = _element$props.strict,
-            sensitive = _element$props.sensitive,
-            from = _element$props.from;
-        var path = pathProp || from;
-        child = element;
-        match = (0, _matchPath.default)(location.pathname, {
-          path: path,
-          exact: exact,
-          strict: strict,
-          sensitive: sensitive
-        }, route.match);
-      }
+      _react.default.Children.forEach(_this.props.children, function (child) {
+        if (match == null && _react.default.isValidElement(child)) {
+          element = child;
+          var path = child.props.path || child.props.from;
+          match = path ? matchPath(location.pathname, (0, _extends2.default)({}, child.props, {
+            path: path
+          })) : context$$1.match;
+        }
+      });
+
+      return match ? _react.default.cloneElement(element, {
+        location: location,
+        computedMatch: match
+      }) : null;
     });
-
-    return match ? _react.default.cloneElement(child, {
-      location: location,
-      computedMatch: match
-    }) : null;
   };
 
   return Switch;
 }(_react.default.Component);
 
-Switch.contextTypes = {
-  router: _propTypes.default.shape({
-    route: _propTypes.default.object.isRequired
-  }).isRequired
-};
-Switch.propTypes = {
-  children: _propTypes.default.node,
-  location: _propTypes.default.object
-};
-var _default = Switch;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","warning":"../node_modules/warning/warning.js","invariant":"../node_modules/invariant/browser.js","./matchPath":"../node_modules/react-router/es/matchPath.js"}],"../node_modules/react-router-dom/es/Switch.js":[function(require,module,exports) {
-"use strict";
+exports.Switch = Switch;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+if ("development" !== "production") {
+  Switch.propTypes = {
+    children: _propTypes.default.node,
+    location: _propTypes.default.object
+  };
 
-var _Switch = _interopRequireDefault(require("react-router/es/Switch"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _Switch.default;
-exports.default = _default;
-},{"react-router/es/Switch":"../node_modules/react-router/es/Switch.js"}],"../node_modules/react-router-dom/es/generatePath.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _generatePath = _interopRequireDefault(require("react-router/es/generatePath"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _generatePath.default;
-exports.default = _default;
-},{"react-router/es/generatePath":"../node_modules/react-router/es/generatePath.js"}],"../node_modules/react-router-dom/es/matchPath.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _matchPath = _interopRequireDefault(require("react-router/es/matchPath"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Written in this round about way for babel-transform-imports
-var _default = _matchPath.default;
-exports.default = _default;
-},{"react-router/es/matchPath":"../node_modules/react-router/es/matchPath.js"}],"../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":[function(require,module,exports) {
-'use strict';
-
-/**
- * Copyright 2015, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-var REACT_STATICS = {
-    childContextTypes: true,
-    contextTypes: true,
-    defaultProps: true,
-    displayName: true,
-    getDefaultProps: true,
-    getDerivedStateFromProps: true,
-    mixins: true,
-    propTypes: true,
-    type: true
-};
-
-var KNOWN_STATICS = {
-    name: true,
-    length: true,
-    prototype: true,
-    caller: true,
-    callee: true,
-    arguments: true,
-    arity: true
-};
-
-var defineProperty = Object.defineProperty;
-var getOwnPropertyNames = Object.getOwnPropertyNames;
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-var getPrototypeOf = Object.getPrototypeOf;
-var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-
-function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
-    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-
-        if (objectPrototype) {
-            var inheritedComponent = getPrototypeOf(sourceComponent);
-            if (inheritedComponent && inheritedComponent !== objectPrototype) {
-                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-            }
-        }
-
-        var keys = getOwnPropertyNames(sourceComponent);
-
-        if (getOwnPropertySymbols) {
-            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
-        }
-
-        for (var i = 0; i < keys.length; ++i) {
-            var key = keys[i];
-            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-                try { // Avoid failures from read-only properties
-                    defineProperty(targetComponent, key, descriptor);
-                } catch (e) {}
-            }
-        }
-
-        return targetComponent;
-    }
-
-    return targetComponent;
+  Switch.prototype.componentDidUpdate = function (prevProps) {
+    "development" !== "production" ? (0, _tinyWarning.default)(!(this.props.location && !prevProps.location), '<Switch> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : void 0;
+    "development" !== "production" ? (0, _tinyWarning.default)(!(!this.props.location && prevProps.location), '<Switch> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : void 0;
+  };
 }
-
-module.exports = hoistNonReactStatics;
-
-},{}],"../node_modules/react-router/es/withRouter.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _hoistNonReactStatics = _interopRequireDefault(require("hoist-non-react-statics"));
-
-var _Route = _interopRequireDefault(require("./Route"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-function _objectWithoutProperties(obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-}
-
 /**
  * A public higher-order component to access the imperative API
  */
-var withRouter = function withRouter(Component) {
+
+
+function withRouter(Component) {
   var C = function C(props) {
     var wrappedComponentRef = props.wrappedComponentRef,
-        remainingProps = _objectWithoutProperties(props, ["wrappedComponentRef"]);
-
-    return _react.default.createElement(_Route.default, {
+        remainingProps = (0, _objectWithoutPropertiesLoose2.default)(props, ["wrappedComponentRef"]);
+    return _react.default.createElement(Route, {
       children: function children(routeComponentProps) {
-        return _react.default.createElement(Component, _extends({}, remainingProps, routeComponentProps, {
+        return _react.default.createElement(Component, (0, _extends2.default)({}, remainingProps, routeComponentProps, {
           ref: wrappedComponentRef
         }));
       }
@@ -46152,15 +45062,322 @@ var withRouter = function withRouter(Component) {
 
   C.displayName = "withRouter(" + (Component.displayName || Component.name) + ")";
   C.WrappedComponent = Component;
-  C.propTypes = {
-    wrappedComponentRef: _propTypes.default.func
-  };
-  return (0, _hoistNonReactStatics.default)(C, Component);
-};
 
-var _default = withRouter;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","hoist-non-react-statics":"../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js","./Route":"../node_modules/react-router/es/Route.js"}],"../node_modules/react-router-dom/es/withRouter.js":[function(require,module,exports) {
+  if ("development" !== "production") {
+    C.propTypes = {
+      wrappedComponentRef: _propTypes.default.func
+    };
+  }
+
+  return (0, _hoistNonReactStatics.default)(C, Component);
+}
+
+if ("development" !== "production") {
+  var global = (0, eval)("this");
+  var key = "__react_router_build__";
+  var buildNames = {
+    cjs: "CommonJS",
+    esm: "ES modules",
+    umd: "UMD"
+  };
+
+  if (global[key] && global[key] !== "esm") {
+    var initialBuildName = buildNames[global[key]];
+    var secondaryBuildName = buildNames["esm"]; // TODO: Add link to article that explains in detail how to avoid
+    // loading 2 different builds.
+
+    throw new Error("You are loading the " + secondaryBuildName + " build of React Router " + ("on a page that is already running the " + initialBuildName + " ") + "build, so things won't work right.");
+  }
+
+  global[key] = "esm";
+}
+},{"create-react-context":"../node_modules/create-react-context/lib/index.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","history":"../node_modules/history/esm/history.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js","path-to-regexp":"../node_modules/path-to-regexp/index.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","react-is":"../node_modules/react-is/index.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","hoist-non-react-statics":"../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"}],"../node_modules/react-router-dom/esm/react-router-dom.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {
+  BrowserRouter: true,
+  HashRouter: true,
+  Link: true,
+  NavLink: true
+};
+exports.NavLink = NavLink;
+exports.Link = exports.HashRouter = exports.BrowserRouter = void 0;
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouter = require("react-router");
+
+Object.keys(_reactRouter).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _reactRouter[key];
+    }
+  });
+});
+
+var _history = require("history");
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _tinyWarning = _interopRequireDefault(require("tiny-warning"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _tinyInvariant = _interopRequireDefault(require("tiny-invariant"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The public API for a <Router> that uses HTML5 history.
+ */
+var BrowserRouter =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(BrowserRouter, _React$Component);
+
+  function BrowserRouter() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.history = (0, _history.createBrowserHistory)(_this.props);
+    return _this;
+  }
+
+  var _proto = BrowserRouter.prototype;
+
+  _proto.render = function render() {
+    return _react.default.createElement(_reactRouter.Router, {
+      history: this.history,
+      children: this.props.children
+    });
+  };
+
+  return BrowserRouter;
+}(_react.default.Component);
+
+exports.BrowserRouter = BrowserRouter;
+
+if ("development" !== "production") {
+  BrowserRouter.propTypes = {
+    basename: _propTypes.default.string,
+    children: _propTypes.default.node,
+    forceRefresh: _propTypes.default.bool,
+    getUserConfirmation: _propTypes.default.func,
+    keyLength: _propTypes.default.number
+  };
+
+  BrowserRouter.prototype.componentDidMount = function () {
+    "development" !== "production" ? (0, _tinyWarning.default)(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.") : void 0;
+  };
+}
+/**
+ * The public API for a <Router> that uses window.location.hash.
+ */
+
+
+var HashRouter =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(HashRouter, _React$Component);
+
+  function HashRouter() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.history = (0, _history.createHashHistory)(_this.props);
+    return _this;
+  }
+
+  var _proto = HashRouter.prototype;
+
+  _proto.render = function render() {
+    return _react.default.createElement(_reactRouter.Router, {
+      history: this.history,
+      children: this.props.children
+    });
+  };
+
+  return HashRouter;
+}(_react.default.Component);
+
+exports.HashRouter = HashRouter;
+
+if ("development" !== "production") {
+  HashRouter.propTypes = {
+    basename: _propTypes.default.string,
+    children: _propTypes.default.node,
+    getUserConfirmation: _propTypes.default.func,
+    hashType: _propTypes.default.oneOf(["hashbang", "noslash", "slash"])
+  };
+
+  HashRouter.prototype.componentDidMount = function () {
+    "development" !== "production" ? (0, _tinyWarning.default)(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.") : void 0;
+  };
+}
+
+function isModifiedEvent(event) {
+  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+}
+/**
+ * The public API for rendering a history-aware <a>.
+ */
+
+
+var Link =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inheritsLoose2.default)(Link, _React$Component);
+
+  function Link() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = Link.prototype;
+
+  _proto.handleClick = function handleClick(event, history) {
+    if (this.props.onClick) this.props.onClick(event);
+
+    if (!event.defaultPrevented && // onClick prevented default
+    event.button === 0 && ( // ignore everything but left clicks
+    !this.props.target || this.props.target === "_self") && // let browser handle "target=_blank" etc.
+    !isModifiedEvent(event) // ignore clicks with modifier keys
+    ) {
+        event.preventDefault();
+        var method = this.props.replace ? history.replace : history.push;
+        method(this.props.to);
+      }
+  };
+
+  _proto.render = function render() {
+    var _this = this;
+
+    var _this$props = this.props,
+        innerRef = _this$props.innerRef,
+        replace = _this$props.replace,
+        to = _this$props.to,
+        rest = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["innerRef", "replace", "to"]); // eslint-disable-line no-unused-vars
+
+    return _react.default.createElement(_reactRouter.__RouterContext.Consumer, null, function (context) {
+      !context ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <Link> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
+      var location = typeof to === "string" ? (0, _history.createLocation)(to, null, null, context.location) : to;
+      var href = location ? context.history.createHref(location) : "";
+      return _react.default.createElement("a", (0, _extends2.default)({}, rest, {
+        onClick: function onClick(event) {
+          return _this.handleClick(event, context.history);
+        },
+        href: href,
+        ref: innerRef
+      }));
+    });
+  };
+
+  return Link;
+}(_react.default.Component);
+
+exports.Link = Link;
+
+if ("development" !== "production") {
+  var toType = _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]);
+
+  var innerRefType = _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func, _propTypes.default.shape({
+    current: _propTypes.default.instanceOf(Element)
+  })]);
+
+  Link.propTypes = {
+    innerRef: innerRefType,
+    onClick: _propTypes.default.func,
+    replace: _propTypes.default.bool,
+    target: _propTypes.default.string,
+    to: toType.isRequired
+  };
+}
+
+function joinClassnames() {
+  for (var _len = arguments.length, classnames = new Array(_len), _key = 0; _key < _len; _key++) {
+    classnames[_key] = arguments[_key];
+  }
+
+  return classnames.filter(function (i) {
+    return i;
+  }).join(" ");
+}
+/**
+ * A <Link> wrapper that knows if it's "active" or not.
+ */
+
+
+function NavLink(_ref) {
+  var _ref$ariaCurrent = _ref["aria-current"],
+      ariaCurrent = _ref$ariaCurrent === void 0 ? "page" : _ref$ariaCurrent,
+      _ref$activeClassName = _ref.activeClassName,
+      activeClassName = _ref$activeClassName === void 0 ? "active" : _ref$activeClassName,
+      activeStyle = _ref.activeStyle,
+      classNameProp = _ref.className,
+      exact = _ref.exact,
+      isActiveProp = _ref.isActive,
+      location = _ref.location,
+      strict = _ref.strict,
+      styleProp = _ref.style,
+      to = _ref.to,
+      rest = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "strict", "style", "to"]);
+  var path = typeof to === "object" ? to.pathname : to; // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
+
+  var escapedPath = path && path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+  return _react.default.createElement(_reactRouter.Route, {
+    path: escapedPath,
+    exact: exact,
+    strict: strict,
+    location: location,
+    children: function children(_ref2) {
+      var location = _ref2.location,
+          match = _ref2.match;
+      var isActive = !!(isActiveProp ? isActiveProp(match, location) : match);
+      var className = isActive ? joinClassnames(classNameProp, activeClassName) : classNameProp;
+      var style = isActive ? (0, _extends2.default)({}, styleProp, activeStyle) : styleProp;
+      return _react.default.createElement(Link, (0, _extends2.default)({
+        "aria-current": isActive && ariaCurrent || null,
+        className: className,
+        style: style,
+        to: to
+      }, rest));
+    }
+  });
+}
+
+if ("development" !== "production") {
+  var ariaCurrentType = _propTypes.default.oneOf(["page", "step", "location", "date", "time", "true"]);
+
+  NavLink.propTypes = (0, _extends2.default)({}, Link.propTypes, {
+    "aria-current": ariaCurrentType,
+    activeClassName: _propTypes.default.string,
+    activeStyle: _propTypes.default.object,
+    className: _propTypes.default.string,
+    exact: _reactRouter.Route.propTypes.exact,
+    isActive: _propTypes.default.func,
+    location: _propTypes.default.object,
+    strict: _reactRouter.Route.propTypes.strict,
+    style: _propTypes.default.object
+  });
+}
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","react-router":"../node_modules/react-router-dom/node_modules/react-router/esm/react-router.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"components/Header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46168,134 +45385,81 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _withRouter = _interopRequireDefault(require("react-router/es/withRouter"));
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactRouterDom = require("react-router-dom");
 
-// Written in this round about way for babel-transform-imports
-var _default = _withRouter.default;
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Header =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Header, _Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Header).apply(this, arguments));
+  }
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "flex pa1 justify-between nowrap orange"
+      }, _react.default.createElement("div", {
+        className: "flex flex-fixed black"
+      }, _react.default.createElement("div", {
+        className: "fw7 mr1"
+      }, "Hacker News"), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/",
+        className: "ml1 no-underline black"
+      }, "new"), _react.default.createElement("div", {
+        className: "ml1"
+      }, "|"), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/create",
+        className: "ml1 no-underline black"
+      }, "submit")));
+    }
+  }]);
+
+  return Header;
+}(_react.Component);
+
+var _default = Header;
 exports.default = _default;
-},{"react-router/es/withRouter":"../node_modules/react-router/es/withRouter.js"}],"../node_modules/react-router-dom/es/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/history.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "BrowserRouter", {
-  enumerable: true,
-  get: function () {
-    return _BrowserRouter2.default;
-  }
-});
-Object.defineProperty(exports, "HashRouter", {
-  enumerable: true,
-  get: function () {
-    return _HashRouter2.default;
-  }
-});
-Object.defineProperty(exports, "Link", {
-  enumerable: true,
-  get: function () {
-    return _Link2.default;
-  }
-});
-Object.defineProperty(exports, "MemoryRouter", {
-  enumerable: true,
-  get: function () {
-    return _MemoryRouter2.default;
-  }
-});
-Object.defineProperty(exports, "NavLink", {
-  enumerable: true,
-  get: function () {
-    return _NavLink2.default;
-  }
-});
-Object.defineProperty(exports, "Prompt", {
-  enumerable: true,
-  get: function () {
-    return _Prompt2.default;
-  }
-});
-Object.defineProperty(exports, "Redirect", {
-  enumerable: true,
-  get: function () {
-    return _Redirect2.default;
-  }
-});
-Object.defineProperty(exports, "Route", {
-  enumerable: true,
-  get: function () {
-    return _Route2.default;
-  }
-});
-Object.defineProperty(exports, "Router", {
-  enumerable: true,
-  get: function () {
-    return _Router2.default;
-  }
-});
-Object.defineProperty(exports, "StaticRouter", {
-  enumerable: true,
-  get: function () {
-    return _StaticRouter2.default;
-  }
-});
-Object.defineProperty(exports, "Switch", {
-  enumerable: true,
-  get: function () {
-    return _Switch2.default;
-  }
-});
-Object.defineProperty(exports, "generatePath", {
-  enumerable: true,
-  get: function () {
-    return _generatePath2.default;
-  }
-});
-Object.defineProperty(exports, "matchPath", {
-  enumerable: true,
-  get: function () {
-    return _matchPath2.default;
-  }
-});
-Object.defineProperty(exports, "withRouter", {
-  enumerable: true,
-  get: function () {
-    return _withRouter2.default;
-  }
-});
+exports.default = void 0;
 
-var _BrowserRouter2 = _interopRequireDefault(require("./BrowserRouter"));
+var _history = require("history");
 
-var _HashRouter2 = _interopRequireDefault(require("./HashRouter"));
+var _default = (0, _history.createBrowserHistory)();
 
-var _Link2 = _interopRequireDefault(require("./Link"));
-
-var _MemoryRouter2 = _interopRequireDefault(require("./MemoryRouter"));
-
-var _NavLink2 = _interopRequireDefault(require("./NavLink"));
-
-var _Prompt2 = _interopRequireDefault(require("./Prompt"));
-
-var _Redirect2 = _interopRequireDefault(require("./Redirect"));
-
-var _Route2 = _interopRequireDefault(require("./Route"));
-
-var _Router2 = _interopRequireDefault(require("./Router"));
-
-var _StaticRouter2 = _interopRequireDefault(require("./StaticRouter"));
-
-var _Switch2 = _interopRequireDefault(require("./Switch"));
-
-var _generatePath2 = _interopRequireDefault(require("./generatePath"));
-
-var _matchPath2 = _interopRequireDefault(require("./matchPath"));
-
-var _withRouter2 = _interopRequireDefault(require("./withRouter"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./BrowserRouter":"../node_modules/react-router-dom/es/BrowserRouter.js","./HashRouter":"../node_modules/react-router-dom/es/HashRouter.js","./Link":"../node_modules/react-router-dom/es/Link.js","./MemoryRouter":"../node_modules/react-router-dom/es/MemoryRouter.js","./NavLink":"../node_modules/react-router-dom/es/NavLink.js","./Prompt":"../node_modules/react-router-dom/es/Prompt.js","./Redirect":"../node_modules/react-router-dom/es/Redirect.js","./Route":"../node_modules/react-router-dom/es/Route.js","./Router":"../node_modules/react-router-dom/es/Router.js","./StaticRouter":"../node_modules/react-router-dom/es/StaticRouter.js","./Switch":"../node_modules/react-router-dom/es/Switch.js","./generatePath":"../node_modules/react-router-dom/es/generatePath.js","./matchPath":"../node_modules/react-router-dom/es/matchPath.js","./withRouter":"../node_modules/react-router-dom/es/withRouter.js"}],"components/App.js":[function(require,module,exports) {
+exports.default = _default;
+},{"history":"../node_modules/history/esm/history.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46312,6 +45476,8 @@ var _CreateLink = _interopRequireDefault(require("./CreateLink"));
 var _Header = _interopRequireDefault(require("./Header"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _history = _interopRequireDefault(require("./history"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46349,7 +45515,9 @@ function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", {
+      return _react.default.createElement(_reactRouterDom.Router, {
+        history: _history.default
+      }, _react.default.createElement("div", {
         className: "center w85"
       }, _react.default.createElement(_Header.default, null), _react.default.createElement("div", {
         className: "ph3 pv1 background-gray"
@@ -46361,7 +45529,7 @@ function (_Component) {
         exact: true,
         path: "/create",
         component: _CreateLink.default
-      }))));
+      })))));
     }
   }]);
 
@@ -46370,7 +45538,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./LinkList":"components/LinkList.js","./CreateLink":"components/CreateLink.js","./Header":"components/Header.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"../node_modules/apollo-link-http-common/node_modules/ts-invariant/lib/invariant.esm.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./LinkList":"components/LinkList.js","./CreateLink":"components/CreateLink.js","./Header":"components/Header.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./history":"components/history.js"}],"../node_modules/apollo-link-http-common/node_modules/ts-invariant/lib/invariant.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49274,8 +48442,6 @@ var _apolloLinkHttp = require("apollo-link-http");
 
 var _apolloCacheInmemory = require("apollo-cache-inmemory");
 
-var _reactRouterDom = require("react-router-dom");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var httpLink = (0, _apolloLinkHttp.createHttpLink)({
@@ -49286,10 +48452,10 @@ var client = new _apolloClient.ApolloClient({
   cache: new _apolloCacheInmemory.InMemoryCache()
 });
 
-_reactDom.default.render(_react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactApollo.ApolloProvider, {
+_reactDom.default.render(_react.default.createElement(_reactApollo.ApolloProvider, {
   client: client
-}, _react.default.createElement(_App.default, null))), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./styles/index.css":"styles/index.css","./components/App.js":"components/App.js","react-apollo":"../node_modules/react-apollo/react-apollo.esm.js","apollo-client":"../node_modules/apollo-client/bundle.esm.js","apollo-link-http":"../node_modules/apollo-link-http/lib/bundle.esm.js","apollo-cache-inmemory":"../node_modules/apollo-cache-inmemory/lib/bundle.esm.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+}, _react.default.createElement(_App.default, null)), document.getElementById('root'));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./styles/index.css":"styles/index.css","./components/App.js":"components/App.js","react-apollo":"../node_modules/react-apollo/react-apollo.esm.js","apollo-client":"../node_modules/apollo-client/bundle.esm.js","apollo-link-http":"../node_modules/apollo-link-http/lib/bundle.esm.js","apollo-cache-inmemory":"../node_modules/apollo-cache-inmemory/lib/bundle.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -49317,7 +48483,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65484" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54639" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
